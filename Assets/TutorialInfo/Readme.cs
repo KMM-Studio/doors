@@ -1,7 +1,8 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿// using System;
+// using UnityEngine;
+// using UnityEngine.UIElements;
 
+/*
 public class Readme : ScriptableObject
 {
     public StyleSheet commonStyle;
@@ -18,3 +19,4 @@ public class Readme : ScriptableObject
         public string heading, text, linkText, url;
     }
 }
+*/
