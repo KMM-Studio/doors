@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 43b61b55eb1fa184d980476c69f9507b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - fluidCompute: {instanceID: 0}
+  - fluidMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - particleMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

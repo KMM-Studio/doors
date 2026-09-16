@@ -1,0 +1,45 @@
+#pragma kernel CSMain
+
+// 1. Define the struct exactly as it appears in C#
+struct Particle
+{
+    float3 position;
+    float3 velocity;
+};
+
+// 2. Variables assigned by FluidManager
+RWStructuredBuffer<Particle> particleBuffer;
+int particleCount;
+float2 blacklistedDrainCoord; // The drain coordinate we passed from C#
+
+// 3. Thread group size (matches the 256 in C# Mathf.CeilToInt)
+[numthreads(256, 1, 1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // Prevent out-of-bounds errors if particle count isn't a perfect multiple of 256
+    if (id.x >= (uint)particleCount) return;
+
+    // Read the current particle
+    Particle p = particleBuffer[id.x];
+
+    // Apply basic gravity (assuming ~60fps fixed timestep)
+    p.velocity.y -= 9.81 * 0.016; 
+
+    // Update position based on velocity
+    p.position += p.velocity * 0.016;
+
+    // Basic Floor Collision: Stop at y = 0
+    // Check if the particle is near the blacklisted drain coordinate
+    bool isNearDrain = abs(p.position.x - blacklistedDrainCoord.x) < 1.0; 
+
+    // If it hits the floor and is NOT at the drain, bounce it. 
+    // Otherwise, let it fall through the omitted wall section.
+    if (p.position.y < 0.0 && !isNearDrain)
+    {
+        p.position.y = 0.0;
+        p.velocity.y *= -0.5; // Bounce with dampening
+    }
+
+    // Save the modified particle back into the GPU buffer
+    particleBuffer[id.x] = p;
+}
