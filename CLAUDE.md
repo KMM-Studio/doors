@@ -1,10 +1,10 @@
-# Projekt: FPS roguelite (KMM-Studio)
+# Projekt: FPS Doorsy (KMM-Studio)
 
 Gra 3D FPS z proceduralnie generowanymi pokojami (inspiracja: „Doors"), lootem, walką z przeciwnikami i systemem klas/skilli (Faza 2). Silnik: **Unity 6 LTS**, język: **C#**, render pipeline: **URP**.
 
 ## Zespół
-- **KariiX** — Python, grafika 2D (GIMP/Photoshop), SQL/bazy danych
-- **Moozek** — C++, front-end (JS/React)
+- **KariiX** — Python, grafika 2D/3D (GIMP/Photoshop/Blender)
+- **Moozek** — front-end, C++
 - **Marcin** — uniwersalny, szeroka wiedza
 
 Duża część kodu powstaje metodą vibe-codingu przy pomocy Claude Code. Poniższe zasady obowiązują **każdą** sesję generowania kodu, niezależnie od tego, kto ją prowadzi.
