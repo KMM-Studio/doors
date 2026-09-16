@@ -4,7 +4,7 @@ Gra 3D FPS z proceduralnie generowanymi pokojami (inspiracja: „Doors"), lootem
 
 ## Zespół
 - **KariiX** — Python, grafika 2D/3D (GIMP/Photoshop/Blender)
-- **Moozek** — front-end, C++
+- **Moozek** — front-end, C#, react, tailwind, vite
 - **Marcin** — uniwersalny, szeroka wiedza
 
 Duża część kodu powstaje metodą vibe-codingu przy pomocy Claude Code. Poniższe zasady obowiązują **każdą** sesję generowania kodu, niezależnie od tego, kto ją prowadzi.
