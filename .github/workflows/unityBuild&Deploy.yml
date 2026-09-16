@@ -1,0 +1,73 @@
+name: Build and Release
+on:
+  push:
+    branches:
+      - main
+
+# Grant permission to create GitHub Releases
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # If one platform fails, let the other continue
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64
+          - StandaloneLinux64
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Notice the cache key now includes the targetPlatform to prevent cache conflicts
+      - uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-build-${{ matrix.targetPlatform }}-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+          restore-keys: |
+            Library-build-${{ matrix.targetPlatform }}-
+            Library-build-
+            Library-
+
+      - name: Build Unity Project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: ${{ matrix.targetPlatform }}
+
+      - name: Zip the Build
+        run: zip -r ${{ matrix.targetPlatform }}.zip build/${{ matrix.targetPlatform }}
+
+      # Upload the zip temporarily so the release job can grab it
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.targetPlatform }}-zip
+          path: ${{ matrix.targetPlatform }}.zip
+
+  release:
+    name: Create GitHub Release
+    needs: build # This ensures the release waits for all matrix builds to finish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded-builds
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v0.${{ github.run_number }}
+          name: Release v0.${{ github.run_number }}
+          # The download-artifact action creates subfolders for each artifact name, 
+          # so we use a glob pattern (**) to find all zip files within them.
+          files: downloaded-builds/**/*.zip
+          generate_release_notes: true
