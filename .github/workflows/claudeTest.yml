@@ -1,0 +1,28 @@
+name: CLAUDE.md Compliance Check
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  claude-lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Review PR against CLAUDE.md
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Compare the PR diff against the conventions and architecture rules in CLAUDE.md.
+            Post a review comment listing any violations with file names, line numbers,
+            and the exact rule from CLAUDE.md that was broken.
+          claude_args: |
+            --allowedTools "Read,Glob,Grep"
+            --max-turns 5
