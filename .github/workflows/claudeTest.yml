@@ -1,28 +1,70 @@
-name: CLAUDE.md Compliance Check
+name: CLAUDE.md Compliance (Kimi K3)
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  claude-lint:
+  audit-compliance:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Review PR against CLAUDE.md
-        uses: anthropics/claude-code-action@v1
+      - uses: actions/setup-node@v4
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
-            Compare the PR diff against the conventions and architecture rules in CLAUDE.md.
-            Post a review comment listing any violations with file names, line numbers,
-            and the exact rule from CLAUDE.md that was broken.
-          claude_args: |
-            --allowedTools "Read,Glob,Grep"
-            --max-turns 5
+          node-version: 20
+
+      - name: Install OpenAI SDK
+        run: npm install openai
+
+      - name: Audit PR Changes with Kimi K3
+        env:
+          # Use MOONSHOT_API_KEY (api.moonshot.ai/v1) or OPENROUTER_API_KEY
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          node -e '
+          import OpenAI from "openai";
+          import { execSync } from "child_process";
+          import * as fs from "fs";
+
+          async function main() {
+            const client = new OpenAI({
+              baseURL: "https://openrouter.ai/api/v1",
+              apiKey: process.env.OPENROUTER_API_KEY,
+            });
+
+            const claudeMd = fs.existsSync("CLAUDE.md") ? fs.readFileSync("CLAUDE.md", "utf8") : "";
+            const diff = execSync("git diff origin/${{ github.base_ref }} HEAD").toString();
+
+            if (!claudeMd || !diff.trim()) {
+              console.log("No CLAUDE.md found or empty diff. Skipping check.");
+              process.exit(0);
+            }
+
+            const response = await client.chat.completions.create({
+              model: "moonshotai/kimi-k3",
+              messages: [
+                {
+                  role: "system",
+                  content: "You are a strict CI compliance bot. Review the git diff against CLAUDE.md rules. If violations exist, output \"RESULT: FAILED\" and list them with line numbers. Otherwise output \"RESULT: PASSED\"."
+                },
+                {
+                  role: "user",
+                  content: `CLAUDE.MD RULES:\n${claudeMd}\n\nGIT DIFF:\n${diff}`
+                }
+              ]
+            });
+
+            const result = response.choices[0]?.message?.content || "";
+            console.log(result);
+
+            if (result.includes("RESULT: FAILED")) {
+              console.error("::error::PR violates CLAUDE.md rules!");
+              process.exit(1);
+            }
+          }
+
+          main();
+          '
