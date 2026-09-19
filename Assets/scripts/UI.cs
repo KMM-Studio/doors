@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using prefabs.player;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -11,19 +12,31 @@ public class UI : MonoBehaviour
     [Header("UI References")] 
     [SerializeField]public SerializableDictionary<ItemType, Image> inventorySlots;
     public TextMeshProUGUI changeText;
+    
+    private void OnEnable()
+    {
+        ItemDetection.OnItemPickupChanged += UpdateItemPickup;
+        PlayerInfo.OnItemUIUpdated += UpdateItemUI;
+    }
 
-    private void OnUpdateItemPickup(bool enable)
+    private void OnDisable()
+    {
+        ItemDetection.OnItemPickupChanged -= UpdateItemPickup;
+        PlayerInfo.OnItemUIUpdated -= UpdateItemUI;
+    }
+    
+    private void UpdateItemPickup(bool enable)
     {
         changeText.gameObject.SetActive(enable);        
     }
 
     private void Awake()
     {
-        OnUpdateItemUI(null);
+        UpdateItemUI(null);
     }
 
     // Funkcja aktualizująca wygląd (kolory i rozmiar)
-    private void OnUpdateItemUI([CanBeNull] PlayerInfo playerInfo)
+    private void UpdateItemUI([CanBeNull] PlayerInfo playerInfo)
     {   
         var inventory = playerInfo?.inventory ?? new SerializableDictionary<ItemType, ItemTags>
         {
@@ -39,12 +52,12 @@ public class UI : MonoBehaviour
         {
             if (inventorySlot.Key.Equals(currentItem))
             {
-                inventorySlot.Value.color = inventory.ContainsKey(currentItem) ? Color.yellow : new Color(1f, 0.92f, 0.016f, 0.5f);
+                inventorySlot.Value.color = inventory[currentItem] is not null? Color.yellow : new Color(1f, 0.92f, 0.016f, 0.5f);
                 inventorySlot.Value.transform.localScale = new Vector3(1.15f, 1.15f, 1f); // Lekko powiększony
             }
             else
             {
-                inventorySlot.Value.color = inventory.ContainsKey(inventorySlot.Key) ? Color.white : new Color(1f, 1f, 1f, 0.2f);
+                inventorySlot.Value.color = inventory[inventorySlot.Key] is not null ? Color.white : new Color(1f, 1f, 1f, 0.2f);
                 inventorySlot.Value.transform.localScale = Vector3.one; // Normalny rozmiar
             }
             
