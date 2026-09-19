@@ -11,28 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/SerializableDictionary.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/SerializableDictionary.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSchema.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSchema.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/ItemDetection.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/ItemDetection.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/ItemTags.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/ItemTags.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Movement.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/Movement.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/UI.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/UI.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/ItemTags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/item/ItemTags.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/TestItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/item/TestItem.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/ItemDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/ItemDetection.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/scripts/UI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/UI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/UI.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/UI.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +55,7 @@
     <setting file="mock:///home/moozek/doors/Assets/prefabs/Movement.cs.meta" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///home/moozek/doors/Assets/prefabs/UI.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///home/moozek/doors/Assets/prefabs/UI.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/moozek/doors/Assets/prefabs/player/playerMovement.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -181,7 +167,10 @@
     <MESSAGE value="feat(playerMovement): add camera look controls and refactor input handling" />
     <MESSAGE value="chore: refactor scene and remove obsolete scripts" />
     <MESSAGE value="chore: remove test prefabs and scripts" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: remove test prefabs and scripts" />
+    <MESSAGE value="chore: reorganize player scripts and update input system" />
+    <MESSAGE value="chore: add player info, debugger switch, and input system configuration" />
+    <MESSAGE value="refactor: reorganize scripts and update scene" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: reorganize scripts and update scene" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
