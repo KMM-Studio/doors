@@ -1,69 +1,53 @@
+using System;
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    [Header("UI References")]
-    public Image[] inventorySlots;
+    [Header("UI References")] 
+    [SerializeField]public SerializableDictionary<ItemType, Image> inventorySlots;
+    public TextMeshProUGUI changeText;
 
-    // Tablica, która śledzi, czy dany slot jest obecnie zajęty
-    private bool[] isSlotOccupied;
-
-    void Start()
+    private void OnUpdateItemPickup(bool enable)
     {
-        // Inicjalizujemy tablicę z ilością miejsc odpowiadającą ilości slotów UI
-        isSlotOccupied = new bool[inventorySlots.Length];
-        ResetSlots();
+        changeText.gameObject.SetActive(enable);        
     }
 
-    private void ResetSlots()
+    private void Awake()
     {
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            if (inventorySlots[i] != null)
-                inventorySlots[i].color = new Color(1f, 1f, 1f, 0.2f);
-
-            isSlotOccupied[i] = false;
-        }
+        OnUpdateItemUI(null);
     }
 
-    // Tłumaczymy typ przedmiotu na konkretny numer slotu (0 to pierwszy slot od lewej)
-    public int GetSlotIndex(ItemType type)
-    {
-        switch (type)
+    // Funkcja aktualizująca wygląd (kolory i rozmiar)
+    private void OnUpdateItemUI([CanBeNull] PlayerInfo playerInfo)
+    {   
+        var inventory = playerInfo?.inventory ?? new SerializableDictionary<ItemType, ItemTags>
         {
-            case ItemType.Primary: return 0;     // Broń zawsze w slocie nr 1
-            case ItemType.Secondary: return 1; // Apteczka zawsze w slocie nr 2
-            case ItemType.lapis: return 2;    // Klucz zawsze w slocie nr 3
-            case ItemType.gowno: return 3; // Amunicja zawsze w slocie nr 4
-            default: return -1;               // Błąd / brak przypisania
-        }
-    }
-
-    // Sprawdzamy, czy slot dedykowany dla tego typu jest już zajęty
-    public bool HasItemType(ItemType type)
-    {
-        int slotIndex = GetSlotIndex(type);
-
-        if (slotIndex >= 0 && slotIndex < isSlotOccupied.Length)
+            [ItemType.Primary] = null,
+            [ItemType.Secondary] = null,
+            [ItemType.Melee] = null,
+            [ItemType.Utils] = null
+        };;
+        var currentItem = playerInfo?.currentItemType ?? ItemType.Primary;
+        
+        
+        foreach (var inventorySlot in inventorySlots)
         {
-            return isSlotOccupied[slotIndex];
+            if (inventorySlot.Key.Equals(currentItem))
+            {
+                inventorySlot.Value.color = inventory.ContainsKey(currentItem) ? Color.yellow : new Color(1f, 0.92f, 0.016f, 0.5f);
+                inventorySlot.Value.transform.localScale = new Vector3(1.15f, 1.15f, 1f); // Lekko powiększony
+            }
+            else
+            {
+                inventorySlot.Value.color = inventory.ContainsKey(inventorySlot.Key) ? Color.white : new Color(1f, 1f, 1f, 0.2f);
+                inventorySlot.Value.transform.localScale = Vector3.one; // Normalny rozmiar
+            }
+            
         }
-        return false;
-    }
-
-    public bool AddItem(ItemType type)
-    {
-        int slotIndex = GetSlotIndex(type);
-
-        // Jeśli slot istnieje i jest pusty, dodajemy przedmiot
-        if (slotIndex >= 0 && slotIndex < inventorySlots.Length && !isSlotOccupied[slotIndex])
-        {
-            isSlotOccupied[slotIndex] = true;
-            inventorySlots[slotIndex].color = Color.white; // Kolorowanie zajętego slotu
-            Debug.Log($"Dodano {type} do stałego slotu nr {slotIndex + 1}");
-            return true;
-        }
-        return false;
     }
 }
