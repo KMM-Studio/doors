@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &338206074252600488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013689079364228816}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1013689079364228816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338206074252600488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.36, z: 0.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4712196018565412030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3994345235577851360
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +181,7 @@ GameObject:
   - component: {fileID: 6342260772256816042}
   - component: {fileID: 5400302319825710000}
   - component: {fileID: 6590247442084620597}
+  - component: {fileID: 8912120768718863001}
   - component: {fileID: 37472397323336505}
   - component: {fileID: 1354405057766828948}
   - component: {fileID: 8612028263002251497}
@@ -175,6 +207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6046449846405813340}
+  - {fileID: 1013689079364228816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5533540117746622389
@@ -254,7 +287,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6590247442084620597
@@ -269,12 +302,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300cf7f3226f59e4b845fd0f9e7575c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playerMovement
-  moveSpeed: 5
+  playerInfo: {fileID: 8912120768718863001}
   lookSensitivity: 1.2
   minPitch: -85
   maxPitch: 85
   playerInput: {fileID: 5533540117746622389}
   playerCamera: {fileID: 6046449846405813340}
+--- !u!114 &8912120768718863001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048921405098295790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4daa908c06ed81c96fcc6420ef4c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::playerInfo
+  maxHealth: 100
+  currentHealth: 0
+  maxSpeed: 5
+  inventory:
+    entries: []
+  currentItemType: 0
+  maxPickupCooldown: 0
 --- !u!33 &37472397323336505
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -344,8 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b8d042dc25a2741ac98647091fc726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDetection
-  inventoryUI: {fileID: 0}
-  pickupPromptUI: {fileID: 0}
+  playerInfo: {fileID: 8912120768718863001}
+  playerInput: {fileID: 5533540117746622389}
+  dropPoint: {fileID: 1013689079364228816}
 --- !u!135 &8023697868819600199
 SphereCollider:
   m_ObjectHideFlags: 0

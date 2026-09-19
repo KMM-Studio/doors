@@ -3,28 +3,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class ItemDetection : MonoBehaviour
-{
-    [Header("Odnośniki do UI")]
-    public UI inventoryUI;
-    public GameObject pickupPromptUI;
+{   
+
+    [Header("odnośniki do playera")]
+    public PlayerInfo playerInfo;
     public PlayerInput playerInput;
+    public Transform dropPoint;
 
     private GameObject currentItemInRange = null;
     private ItemTags currentItemDetails = null; // Zapisujemy detale przedmiotu w zasięgu
-
-    void Start()
-    {
-        if (pickupPromptUI != null) pickupPromptUI.SetActive(false);
-    }
+    
+    private float pickupCooldown = 0f;
 
     private void OnEnable()
     {
         ToggleAction("Interact", true);
+        ToggleAction("Drop", true);
+        ToggleAction("Next", true);
+        ToggleAction("Previous", true);
     }
 
     private void OnDisable()
     {
         ToggleAction("Interact", false);
+        ToggleAction("Drop", false);
+        ToggleAction("Next", false);
+        ToggleAction("Previous", false);
     }
 
     private void ToggleAction(string actionName, bool enable)
@@ -37,14 +41,42 @@ public class ItemDetection : MonoBehaviour
         else action.Disable();
     }
 
-    void Update()
+    private void OnNext()
     {
-        // Zamiana następuje po wciśnięciu E, gdy mamy przedmiot w zasięgu
-        if (currentItemInRange is not null && playerInput.actions.FindAction("Interact").ReadValue<bool>() )
+        playerInfo.ChangeItemTypeNext();
+    }
+
+    private void OnPrevious()
+    {
+        playerInfo.ChangeItemTypePrevious();
+    }
+
+    private void OnDrop()
+    {
+        DropCurrentItem();
+    }
+
+    private void OnInteract()
+    {
+        if (currentItemInRange is not null)
         {
-            SwapItem(currentItemInRange, currentItemDetails);
+            if (!PickUpItem(currentItemDetails))
+            {
+                SwapItemTags(currentItemDetails);
+            }
         }
     }
+
+    private void FixedUpdate()
+    {
+        // Jeśli stoper jest większy od zera, odliczamy czas w dół
+        if (pickupCooldown > 0f)
+        {
+            pickupCooldown -= Time.fixedDeltaTime;
+        }
+    }
+    
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -53,30 +85,19 @@ public class ItemDetection : MonoBehaviour
             ItemTags details = other.GetComponent<ItemTags>();
 
             // Zabezpieczenie: jeśli obiekt nie ma skryptu ItemDetails, ignorujemy go
-            if (details == null) return;
-
+            if (details is null) return;
+            
             // Jeśli MAMY już ten typ w ekwipunku, blokujemy auto-podnoszenie i włączamy napis
-            if (inventoryUI.HasItemType(details.itemType))
-            {
-                currentItemInRange = other.gameObject;
-                currentItemDetails = details;
-                if (pickupPromptUI != null) pickupPromptUI.SetActive(true);
+            if (playerInfo.inventory.TryGetValue(details.itemType, out ItemTags itemTags) && itemTags is not null ) 
+            {   
+                Debug.Log("Picked up " + details.itemType);
+                PickUpItem(details);
             }
             else
             {
-                // Jeśli nie mamy tego typu, próbujemy go dodać (jeśli jest miejsce)
-                bool added = inventoryUI.AddItem(details.itemType);
-
-                if (added)
-                {
-                    Destroy(other.gameObject);
-                }
-                else // Ekwipunek jest pełny innych przedmiotów
-                {
-                    currentItemInRange = other.gameObject;
-                    currentItemDetails = details;
-                    if (pickupPromptUI != null) pickupPromptUI.SetActive(true);
-                }
+                currentItemInRange = other.gameObject;
+                currentItemDetails = details;
+                SendMessage("UpdateItemPickup", true, SendMessageOptions.DontRequireReceiver); // message to UI
             }
         }
     }
@@ -87,19 +108,54 @@ public class ItemDetection : MonoBehaviour
         {
             currentItemInRange = null;
             currentItemDetails = null;
-            if (pickupPromptUI != null) pickupPromptUI.SetActive(false);
+            SendMessage("UpdateItemPickup", false, SendMessageOptions.DontRequireReceiver); // message to UI
         }
     }
 
-    private void SwapItem(GameObject itemOnGround, ItemTags details)
+    public void DropCurrentItem()
     {
-        Debug.Log("Zamieniono przedmiot typu: " + details.itemType);
+        var itemTagToDrop = playerInfo.currentItemTags;
+        playerInfo.RemoveItemFromInventory(currentItemDetails.itemType);
+        if (itemTagToDrop is not null)
+        {
+            DropItem(itemTagToDrop);
+        }
+        
+    }
+    public void SwapItemTags(ItemTags newItemTags)
+    {
+        if (pickupCooldown > 0f) return;
+        pickupCooldown = playerInfo.maxPickupCooldown;
+        
+        var newItemGameObject = newItemTags.gameObject;
+        newItemGameObject.SetActive(false);
+        newItemGameObject.transform.SetParent(transform);
+            
+        var newItemTagsType = newItemTags.itemType;
+        var oldItemTags = playerInfo.inventory[newItemTagsType];
+        playerInfo.inventory[newItemTagsType] = newItemTags;
 
-        // Tutaj docelowo zaimplementujemy fizyczne upuszczenie starego przedmiotu
-        Destroy(itemOnGround);
+        if (oldItemTags is not null)
+        {
+            DropItem(oldItemTags);
+        }
+    }
 
-        currentItemInRange = null;
-        currentItemDetails = null;
-        if (pickupPromptUI != null) pickupPromptUI.SetActive(false);
+    public bool PickUpItem(ItemTags itemTag)
+    {
+        if (pickupCooldown > 0f) return false; // pickup delay still didnt pass
+        if (playerInfo.inventory.TryAdd(itemTag.itemType, itemTag)) return false;
+        playerInfo.ChangeToItem(itemTag.itemType);
+        return true;
+    }
+    
+    public void DropItem(ItemTags oldItemTags)
+    {
+        var oldItemGameobject = oldItemTags.gameObject;
+        oldItemGameobject.SetActive(true);
+        oldItemGameobject.transform.SetParent(null);
+        
+        Vector3 dropPosition = dropPoint?.position ?? transform.position + (transform.forward * 1.5f);
+        oldItemGameobject.transform.position = dropPosition;
     }
 }
