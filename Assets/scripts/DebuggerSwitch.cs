@@ -8,7 +8,7 @@ namespace DefaultNamespace
     {   
         public bool shouldLogIntoConsole= false;
 
-        private void Awake()
+        private void Start()
         {
             Debug.unityLogger.logEnabled =  shouldLogIntoConsole;
         }

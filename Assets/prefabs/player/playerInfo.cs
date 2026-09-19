@@ -12,6 +12,8 @@ public class PlayerInfo : MonoBehaviour
         [SerializeField] public ItemType currentItemType;
         [NonSerialized] public ItemTags currentItemTags;
         
+        public static event Action<PlayerInfo> OnItemUIUpdated;
+        
         public float maxPickupCooldown = 0f;
         
         private void Start()
@@ -65,6 +67,6 @@ public class PlayerInfo : MonoBehaviour
         private void UpdateItemTags()
         {   
             currentItemTags = inventory[currentItemType];
-            SendMessage("UpdateItemUI", this, SendMessageOptions.DontRequireReceiver); // message to UI
+            OnItemUIUpdated?.Invoke(this); // invoke action in UI
         }
 }
