@@ -11,8 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/playerMovement.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +51,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/e5/63e10f03/UnityEvent`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65dc1190e970438699dcda91354daed72bc00/c5/f9ca697f/Physics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9e5e9156928e44faa47e14b0487b23d95a00/ab/4e1f3dde/NativeInputSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/prefabs/player/player.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/prefabs/player/playerInventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/scripts/itemPool.cs" root0="FORCE_HIGHLIGHTING" />
@@ -89,7 +91,7 @@
     "XThreadsFramesViewSplitterKey": "0.34777898",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "#31 on Merging megarator100/doors-32-as-player-p…d-add",
+    "git-widget-placeholder": "#31 on megarator100/doors-32-as-player-p…d-add",
     "last_opened_file_path": "/home/moozek/doors",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
