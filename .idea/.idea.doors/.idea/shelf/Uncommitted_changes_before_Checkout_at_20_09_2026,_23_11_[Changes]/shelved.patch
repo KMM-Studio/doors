@@ -1,0 +1,364 @@
+Index: Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!21 &2180264\nMaterial:\n  serializedVersion: 6\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: LiberationSans SDF Material\n  m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}\n  m_ShaderKeywords: \n  m_LightmapFlags: 1\n  m_EnableInstancingVariants: 0\n  m_DoubleSidedGI: 0\n  m_CustomRenderQueue: -1\n  stringTagMap: {}\n  disabledShaderPasses: []\n  m_SavedProperties:\n    serializedVersion: 3\n    m_TexEnvs:\n    - _BumpMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _Cube:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _DetailAlbedoMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _DetailMask:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _DetailNormalMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _EmissionMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _FaceTex:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _MainTex:\n        m_Texture: {fileID: 28268798066460806}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _MetallicGlossMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _OcclusionMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _OutlineTex:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    - _ParallaxMap:\n        m_Texture: {fileID: 0}\n        m_Scale: {x: 1, y: 1}\n        m_Offset: {x: 0, y: 0}\n    m_Floats:\n    - _Ambient: 0.5\n    - _Bevel: 0.5\n    - _BevelClamp: 0\n    - _BevelOffset: 0\n    - _BevelRoundness: 0\n    - _BevelWidth: 0\n    - _BumpFace: 0\n    - _BumpOutline: 0\n    - _BumpScale: 1\n    - _ColorMask: 15\n    - _CullMode: 0\n    - _Cutoff: 0.5\n    - _DetailNormalMapScale: 1\n    - _Diffuse: 0.5\n    - _DstBlend: 0\n    - _FaceDilate: 0\n    - _FaceUVSpeedX: 0\n    - _FaceUVSpeedY: 0\n    - _GlossMapScale: 1\n    - _Glossiness: 0.5\n    - _GlossyReflections: 1\n    - _GlowInner: 0.05\n    - _GlowOffset: 0\n    - _GlowOuter: 0.05\n    - _GlowPower: 0.75\n    - _GradientScale: 10\n    - _LightAngle: 3.1416\n    - _MaskSoftnessX: 0\n    - _MaskSoftnessY: 0\n    - _Metallic: 0\n    - _Mode: 0\n    - _OcclusionStrength: 1\n    - _OutlineSoftness: 0\n    - _OutlineUVSpeedX: 0\n    - _OutlineUVSpeedY: 0\n    - _OutlineWidth: 0\n    - _Parallax: 0.02\n    - _PerspectiveFilter: 0.875\n    - _Reflectivity: 10\n    - _ScaleRatioA: 0.90909094\n    - _ScaleRatioB: 0.73125\n    - _ScaleRatioC: 0.7386364\n    - _ScaleX: 1\n    - _ScaleY: 1\n    - _ShaderFlags: 0\n    - _Sharpness: 0\n    - _SmoothnessTextureChannel: 0\n    - _SpecularHighlights: 1\n    - _SpecularPower: 2\n    - _SrcBlend: 1\n    - _Stencil: 0\n    - _StencilComp: 8\n    - _StencilOp: 0\n    - _StencilReadMask: 255\n    - _StencilWriteMask: 255\n    - _TextureHeight: 512\n    - _TextureWidth: 512\n    - _UVSec: 0\n    - _UnderlayDilate: 0\n    - _UnderlayOffsetX: 0\n    - _UnderlayOffsetY: 0\n    - _UnderlaySoftness: 0\n    - _VertexOffsetX: 0\n    - _VertexOffsetY: 0\n    - _WeightBold: 0.75\n    - _WeightNormal: 0\n    - _ZWrite: 1\n    m_Colors:\n    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}\n    - _Color: {r: 1, g: 1, b: 1, a: 1}\n    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}\n    - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}\n    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}\n    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}\n    - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}\n    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}\n    - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}\n    - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}\n    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}\n    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}\n--- !u!114 &11400000\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 0}\n  m_Enabled: 1\n  m_EditorHideFlags: 0\n  m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}\n  m_Name: LiberationSans SDF - Fallback\n  m_EditorClassIdentifier: \n  m_Version: 1.1.0\n  m_Material: {fileID: 2180264}\n  m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75\n  m_SourceFontFile: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}\n  m_AtlasPopulationMode: 1\n  InternalDynamicOS: 0\n  m_FaceInfo:\n    m_FaceIndex: 0\n    m_FamilyName: Liberation Sans\n    m_StyleName: Regular\n    m_PointSize: 86\n    m_Scale: 1\n    m_UnitsPerEM: 2048\n    m_LineHeight: 98.8916\n    m_AscentLine: 77.853516\n    m_CapLine: 59\n    m_MeanLine: 45\n    m_Baseline: 0\n    m_DescentLine: -18.22461\n    m_SuperscriptOffset: 77.853516\n    m_SuperscriptSize: 0.5\n    m_SubscriptOffset: -18.22461\n    m_SubscriptSize: 0.5\n    m_UnderlineOffset: -12.261719\n    m_UnderlineThickness: 6.298828\n    m_StrikethroughOffset: 18\n    m_StrikethroughThickness: 6.298828\n    m_TabWidth: 24\n  m_GlyphTable: []\n  m_CharacterTable: []\n  m_AtlasTextures:\n  - {fileID: 28268798066460806}\n  m_AtlasTextureIndex: 0\n  m_IsMultiAtlasTexturesEnabled: 1\n  m_ClearDynamicDataOnBuild: 1\n  m_UsedGlyphRects: []\n  m_FreeGlyphRects:\n  - m_X: 0\n    m_Y: 0\n    m_Width: 511\n    m_Height: 511\n  m_fontInfo:\n    Name: Liberation Sans\n    PointSize: 86\n    Scale: 1\n    CharacterCount: 250\n    LineHeight: 98.90625\n    Baseline: 0\n    Ascender: 77.84375\n    CapHeight: 59.1875\n    Descender: -18.21875\n    CenterLine: 0\n    SuperscriptOffset: 77.84375\n    SubscriptOffset: -12.261719\n    SubSize: 0.5\n    Underline: -12.261719\n    UnderlineThickness: 6.298828\n    strikethrough: 23.675\n    strikethroughThickness: 0\n    TabWidth: 239.0625\n    Padding: 9\n    AtlasWidth: 1024\n    AtlasHeight: 1024\n  atlas: {fileID: 0}\n  m_AtlasWidth: 512\n  m_AtlasHeight: 512\n  m_AtlasPadding: 9\n  m_AtlasRenderMode: 4169\n  m_glyphInfoList: []\n  m_KerningTable:\n    kerningPairs: []\n  m_FontFeatureTable:\n    m_MultipleSubstitutionRecords: []\n    m_LigatureSubstitutionRecords: []\n    m_GlyphPairAdjustmentRecords: []\n    m_MarkToBaseAdjustmentRecords: []\n    m_MarkToMarkAdjustmentRecords: []\n  fallbackFontAssets: []\n  m_FallbackFontAssetTable: []\n  m_CreationSettings:\n    sourceFontFileName: \n    sourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75\n    faceIndex: 0\n    pointSizeSamplingMode: 0\n    pointSize: 86\n    padding: 9\n    paddingMode: 0\n    packingMode: 4\n    atlasWidth: 512\n    atlasHeight: 512\n    characterSetSelectionMode: 1\n    characterSequence: 32 - 126, 160 - 255, 8192 - 8303, 8364, 8482, 9633\n    referencedFontAssetGUID: 8f586378b4e144a9851e7b34d9b748ee\n    referencedTextAssetGUID: \n    fontStyle: 0\n    fontStyleModifier: 0\n    renderMode: 4169\n    includeFontFeatures: 1\n  m_FontWeightTable:\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  fontWeights:\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  - regularTypeface: {fileID: 0}\n    italicTypeface: {fileID: 0}\n  normalStyle: 0\n  normalSpacingOffset: 0\n  boldStyle: 0.75\n  boldSpacing: 7\n  italicStyle: 35\n  tabSize: 10\n--- !u!28 &28268798066460806\nTexture2D:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_Name: LiberationSans SDF Atlas\n  m_ImageContentsHash:\n    serializedVersion: 2\n    Hash: 00000000000000000000000000000000\n  m_ForcedFallbackFormat: 4\n  m_DownscaleFallback: 0\n  serializedVersion: 2\n  m_Width: 0\n  m_Height: 0\n  m_CompleteImageSize: 0\n  m_TextureFormat: 1\n  m_MipCount: 1\n  m_IsReadable: 1\n  m_StreamingMipmaps: 0\n  m_StreamingMipmapsPriority: 0\n  m_AlphaIsTransparency: 0\n  m_ImageCount: 1\n  m_TextureDimension: 2\n  m_TextureSettings:\n    serializedVersion: 2\n    m_FilterMode: 1\n    m_Aniso: 1\n    m_MipBias: 0\n    m_WrapU: 0\n    m_WrapV: 0\n    m_WrapW: 0\n  m_LightmapFormat: 0\n  m_ColorSpace: 0\n  image data: 0\n  _typelessdata: \n  m_StreamData:\n    offset: 0\n    size: 0\n    path: \n
+===================================================================
+diff --git a/Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset b/Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+--- a/Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset	(revision f4a7dc481f8ac8ed1358d268464b7116902b6aa9)
++++ b/Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset	(date 1789934753603)
+@@ -2,20 +2,24 @@
+ %TAG !u! tag:unity3d.com,2011:
+ --- !u!21 &2180264
+ Material:
+-  serializedVersion: 6
++  serializedVersion: 8
+   m_ObjectHideFlags: 0
+   m_CorrespondingSourceObject: {fileID: 0}
+   m_PrefabInstance: {fileID: 0}
+   m_PrefabAsset: {fileID: 0}
+   m_Name: LiberationSans SDF Material
+   m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+-  m_ShaderKeywords: 
++  m_Parent: {fileID: 0}
++  m_ModifiedSerializedProperties: 0
++  m_ValidKeywords: []
++  m_InvalidKeywords: []
+   m_LightmapFlags: 1
+   m_EnableInstancingVariants: 0
+   m_DoubleSidedGI: 0
+   m_CustomRenderQueue: -1
+   stringTagMap: {}
+   disabledShaderPasses: []
++  m_LockedProperties: 
+   m_SavedProperties:
+     serializedVersion: 3
+     m_TexEnvs:
+@@ -67,6 +71,7 @@
+         m_Texture: {fileID: 0}
+         m_Scale: {x: 1, y: 1}
+         m_Offset: {x: 0, y: 0}
++    m_Ints: []
+     m_Floats:
+     - _Ambient: 0.5
+     - _Bevel: 0.5
+@@ -148,6 +153,8 @@
+     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
++  m_BuildTextureStacks: []
++  m_AllowLocking: 1
+ --- !u!114 &11400000
+ MonoBehaviour:
+   m_ObjectHideFlags: 0
+@@ -161,11 +168,6 @@
+   m_Name: LiberationSans SDF - Fallback
+   m_EditorClassIdentifier: 
+   m_Version: 1.1.0
+-  m_Material: {fileID: 2180264}
+-  m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
+-  m_SourceFontFile: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+-  m_AtlasPopulationMode: 1
+-  InternalDynamicOS: 0
+   m_FaceInfo:
+     m_FaceIndex: 0
+     m_FamilyName: Liberation Sans
+@@ -188,76 +190,57 @@
+     m_StrikethroughOffset: 18
+     m_StrikethroughThickness: 6.298828
+     m_TabWidth: 24
++  m_Material: {fileID: 2180264}
++  m_SourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
++  m_CreationSettings:
++    sourceFontFileName: 
++    sourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
++    faceIndex: 0
++    pointSizeSamplingMode: 0
++    pointSize: 86
++    padding: 9
++    paddingMode: 0
++    packingMode: 4
++    atlasWidth: 512
++    atlasHeight: 512
++    characterSetSelectionMode: 1
++    characterSequence: 32 - 126, 160 - 255, 8192 - 8303, 8364, 8482, 9633
++    referencedFontAssetGUID: 8f586378b4e144a9851e7b34d9b748ee
++    referencedTextAssetGUID: 
++    fontStyle: 0
++    fontStyleModifier: 0
++    renderMode: 4169
++    includeFontFeatures: 1
++  m_SourceFontFile: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
++  m_SourceFontFilePath: 
++  m_AtlasPopulationMode: 1
++  InternalDynamicOS: 0
+   m_GlyphTable: []
+   m_CharacterTable: []
+   m_AtlasTextures:
+   - {fileID: 28268798066460806}
+   m_AtlasTextureIndex: 0
+   m_IsMultiAtlasTexturesEnabled: 1
++  m_GetFontFeatures: 1
+   m_ClearDynamicDataOnBuild: 1
++  m_AtlasWidth: 512
++  m_AtlasHeight: 512
++  m_AtlasPadding: 9
++  m_AtlasRenderMode: 4169
+   m_UsedGlyphRects: []
+   m_FreeGlyphRects:
+   - m_X: 0
+     m_Y: 0
+     m_Width: 511
+     m_Height: 511
+-  m_fontInfo:
+-    Name: Liberation Sans
+-    PointSize: 86
+-    Scale: 1
+-    CharacterCount: 250
+-    LineHeight: 98.90625
+-    Baseline: 0
+-    Ascender: 77.84375
+-    CapHeight: 59.1875
+-    Descender: -18.21875
+-    CenterLine: 0
+-    SuperscriptOffset: 77.84375
+-    SubscriptOffset: -12.261719
+-    SubSize: 0.5
+-    Underline: -12.261719
+-    UnderlineThickness: 6.298828
+-    strikethrough: 23.675
+-    strikethroughThickness: 0
+-    TabWidth: 239.0625
+-    Padding: 9
+-    AtlasWidth: 1024
+-    AtlasHeight: 1024
+-  atlas: {fileID: 0}
+-  m_AtlasWidth: 512
+-  m_AtlasHeight: 512
+-  m_AtlasPadding: 9
+-  m_AtlasRenderMode: 4169
+-  m_glyphInfoList: []
+-  m_KerningTable:
+-    kerningPairs: []
+   m_FontFeatureTable:
+     m_MultipleSubstitutionRecords: []
+     m_LigatureSubstitutionRecords: []
+     m_GlyphPairAdjustmentRecords: []
+     m_MarkToBaseAdjustmentRecords: []
+     m_MarkToMarkAdjustmentRecords: []
+-  fallbackFontAssets: []
++  m_ShouldReimportFontFeatures: 0
+   m_FallbackFontAssetTable: []
+-  m_CreationSettings:
+-    sourceFontFileName: 
+-    sourceFontFileGUID: e3265ab4bf004d28a9537516768c1c75
+-    faceIndex: 0
+-    pointSizeSamplingMode: 0
+-    pointSize: 86
+-    padding: 9
+-    paddingMode: 0
+-    packingMode: 4
+-    atlasWidth: 512
+-    atlasHeight: 512
+-    characterSetSelectionMode: 1
+-    characterSequence: 32 - 126, 160 - 255, 8192 - 8303, 8364, 8482, 9633
+-    referencedFontAssetGUID: 8f586378b4e144a9851e7b34d9b748ee
+-    referencedTextAssetGUID: 
+-    fontStyle: 0
+-    fontStyleModifier: 0
+-    renderMode: 4169
+-    includeFontFeatures: 1
+   m_FontWeightTable:
+   - regularTypeface: {fileID: 0}
+     italicTypeface: {fileID: 0}
+@@ -306,6 +289,33 @@
+   boldSpacing: 7
+   italicStyle: 35
+   tabSize: 10
++  m_fontInfo:
++    Name: Liberation Sans
++    PointSize: 86
++    Scale: 1
++    CharacterCount: 250
++    LineHeight: 98.90625
++    Baseline: 0
++    Ascender: 77.84375
++    CapHeight: 59.1875
++    Descender: -18.21875
++    CenterLine: 0
++    SuperscriptOffset: 77.84375
++    SubscriptOffset: -12.261719
++    SubSize: 0.5
++    Underline: -12.261719
++    UnderlineThickness: 6.298828
++    strikethrough: 23.675
++    strikethroughThickness: 0
++    TabWidth: 239.0625
++    Padding: 9
++    AtlasWidth: 1024
++    AtlasHeight: 1024
++  m_glyphInfoList: []
++  m_KerningTable:
++    kerningPairs: []
++  fallbackFontAssets: []
++  atlas: {fileID: 0}
+ --- !u!28 &28268798066460806
+ Texture2D:
+   m_ObjectHideFlags: 0
+@@ -316,17 +326,21 @@
+   m_ImageContentsHash:
+     serializedVersion: 2
+     Hash: 00000000000000000000000000000000
+-  m_ForcedFallbackFormat: 4
+-  m_DownscaleFallback: 0
+-  serializedVersion: 2
+-  m_Width: 0
+-  m_Height: 0
+-  m_CompleteImageSize: 0
++  m_IsAlphaChannelOptional: 0
++  serializedVersion: 4
++  m_Width: 1
++  m_Height: 1
++  m_CompleteImageSize: 1
++  m_MipsStripped: 0
+   m_TextureFormat: 1
+   m_MipCount: 1
+   m_IsReadable: 1
++  m_IsPreProcessed: 0
++  m_IgnoreMipmapLimit: 0
++  m_MipmapLimitGroupName: 
+   m_StreamingMipmaps: 0
+   m_StreamingMipmapsPriority: 0
++  m_VTOnly: 0
+   m_AlphaIsTransparency: 0
+   m_ImageCount: 1
+   m_TextureDimension: 2
+@@ -340,9 +354,11 @@
+     m_WrapW: 0
+   m_LightmapFormat: 0
+   m_ColorSpace: 0
+-  image data: 0
+-  _typelessdata: 
++  m_PlatformBlob: 
++  image data: 1
++  _typelessdata: 00
+   m_StreamData:
++    serializedVersion: 2
+     offset: 0
+     size: 0
+     path: 
+Index: .idea/.idea.doors/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"CMakeProjectFlavorService\">\n    <option name=\"flavorId\" value=\"CMakePlainProjectFlavor\" />\n  </component>\n  <component name=\"CMakeSettings\">\n    <configurations />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"fb662ddc-fb2e-41bc-bac4-fa996a0016de\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/InputSchema.inputactions\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/InputSchema.inputactions\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scenes/SampleScene.unity\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scenes/SampleScene.unity\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab.meta\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Packages/manifest.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Packages/manifest.json\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Packages/packages-lock.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Packages/packages-lock.json\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"DpaMonitoringSettings\">\n    <option name=\"firstShow\" value=\"false\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\">{\n  &quot;lastFilter&quot;: {\n    &quot;state&quot;: &quot;OPEN&quot;,\n    &quot;assignee&quot;: &quot;MooZeKMZK&quot;\n  }\n}</component>\n  <component name=\"GithubProjectSettings\">\n    <option name=\"branchProtectionPatterns\">\n      <list>\n        <option value=\"main\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"GithubPullRequestsUISettings\">{\n  &quot;selectedUrlAndAccountId&quot;: {\n    &quot;url&quot;: &quot;https://github.com/KMM-Studio/doors.git&quot;,\n    &quot;accountId&quot;: &quot;ce0854b5-6efd-49cd-bdeb-df1d25b7f2bb&quot;\n  }\n}</component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/41/35e57ed5/InvokableCall`1.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/7d/d59db294/Object.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/e5/63e10f03/UnityEvent`1.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65dc1190e970438699dcda91354daed72bc00/c5/f9ca697f/Physics.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9e5e9156928e44faa47e14b0487b23d95a00/ab/4e1f3dde/NativeInputSystem.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/prefabs/player/player.prefab\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/prefabs/player/playerInventory.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/scripts/itemPool.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/scripts/tests/ItemDetectionTests.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/scripts/tests/PlayerInfoTests.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/InputActionState.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/InputInteractionContext.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/Interactions/TapInteraction.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/InputManager.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/InputManagerStateMonitors.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/NativeInputRuntime.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Utilities/DelegateHelpers.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@ac1faea181f8/Tests/Editor/UGUI/UI/PropertyDrawers/PropertyDrawerTests.cs\" root0=\"SKIP_HIGHLIGHTING\" />\n    <setting file=\"mock:///home/moozek/doors/Assets/prefabs/player/player.prefab\" root0=\"SKIP_HIGHLIGHTING\" />\n  </component>\n  <component name=\"MetaFilesCheckinStateConfiguration\" checkMetaFiles=\"true\" />\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 7,\n  &quot;fromUser&quot;: false\n}</component>\n  <component name=\"ProjectId\" id=\"3JSd0yzEgzzV8D3F0T6EkSRQJLU\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity Attach To: Attach to\": \"Unity Editor\",\n    \"DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider\": \"Unity Editor\",\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.cidr.known.project.marker\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"RunOnceActivity.readMode.enableVisualFormatting\": \"true\",\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\n    \"Unity Attach To.Attach to.executor\": \"Debug\",\n    \"XThreadsFramesViewSplitterKey\": \"0.34777898\",\n    \"cidr.known.project.marker\": \"true\",\n    \"codeWithMe.voiceChat.enabledByDefault\": \"false\",\n    \"git-widget-placeholder\": \"mooz05/doors-34-bug-001-swap-not-working\",\n    \"last_opened_file_path\": \"/home/moozek/doors\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"settings.editor.selected.configurable\": \"preferences.build.unityPlugin\"\n  }\n}]]></component>\n  <component name=\"RunManager\" selected=\"Attach to Unity Editor.Attach to Unity Editor\">\n    <configuration name=\"Start Unity\" type=\"RunUnityExe\" factoryName=\"Unity Executable\">\n      <option name=\"EXE_PATH\" value=\"$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1\" />\n      <option name=\"PROGRAM_PARAMETERS\" value=\"-projectPath $PROJECT_DIR$ -debugCodeOptimization\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\n      <option name=\"ENV_FILE_PATHS\" value=\"\" />\n      <option name=\"REDIRECT_INPUT_PATH\" value=\"\" />\n      <option name=\"MIXED_MODE_DEBUG\" value=\"0\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Unit Tests (batch mode)\" type=\"RunUnityExe\" factoryName=\"Unity Executable\">\n      <option name=\"EXE_PATH\" value=\"$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1\" />\n      <option name=\"PROGRAM_PARAMETERS\" value=\"-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\n      <option name=\"ENV_FILE_PATHS\" value=\"\" />\n      <option name=\"REDIRECT_INPUT_PATH\" value=\"\" />\n      <option name=\"MIXED_MODE_DEBUG\" value=\"0\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Attach to Unity Editor\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"Unity Debug\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\" useMixedMode=\"false\">\n      <option name=\"allowRunningInParallel\" value=\"false\" />\n      <option name=\"listenPortForConnections\" value=\"false\" />\n      <option name=\"pid\" />\n      <option name=\"projectPathOnTarget\" />\n      <option name=\"runtimes\">\n        <list />\n      </option>\n      <option name=\"selectedOptions\">\n        <list />\n      </option>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Attach to\" type=\"UnityDevicePlayer\" factoryName=\"UnityAttachToDevicePlayer\">\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"fb662ddc-fb2e-41bc-bac4-fa996a0016de\" name=\"Changes\" comment=\"\" />\n      <created>1789658185776</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1789658185776</updated>\n    </task>\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"UnityCheckinConfiguration\" checkUnsavedScenes=\"true\" />\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"true\" />\n  <component name=\"UnityProjectDiscoverer\">\n    <option name=\"hasUnityReference\" value=\"true\" />\n    <option name=\"unityProject\" value=\"true\" />\n    <option name=\"unityProjectFolder\" value=\"true\" />\n  </component>\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"Both\" />\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\n    <MESSAGE value=\"feat(player): add player prefab and movement script\" />\n    <MESSAGE value=\"chore: implemented colliders for both player and baseplate\" />\n    <MESSAGE value=\"feat(playerMovement): add camera look controls and refactor input handling\" />\n    <MESSAGE value=\"chore: refactor scene and remove obsolete scripts\" />\n    <MESSAGE value=\"chore: remove test prefabs and scripts\" />\n    <MESSAGE value=\"chore: reorganize player scripts and update input system\" />\n    <MESSAGE value=\"chore: add player info, debugger switch, and input system configuration\" />\n    <MESSAGE value=\"refactor: reorganize scripts and update scene\" />\n    <MESSAGE value=\"refactor(player): improve item detection logic and add debug logging\" />\n    <MESSAGE value=\"refactor: restructure player and item systems\" />\n    <MESSAGE value=\"chore: remove player prefab and movement script\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"chore: remove player prefab and movement script\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.OperationCanceledException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.OperationCanceledException\" />\n          <option name=\"timeStamp\" value=\"1\" />\n        </breakpoint>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.Threading.Tasks.TaskCanceledException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.Threading.Tasks.TaskCanceledException\" />\n          <option name=\"timeStamp\" value=\"2\" />\n        </breakpoint>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.Threading.ThreadAbortException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.Threading.ThreadAbortException\" />\n          <option name=\"timeStamp\" value=\"3\" />\n        </breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+===================================================================
+diff --git a/.idea/.idea.doors/.idea/workspace.xml b/.idea/.idea.doors/.idea/workspace.xml
+--- a/.idea/.idea.doors/.idea/workspace.xml	(revision f4a7dc481f8ac8ed1358d268464b7116902b6aa9)
++++ b/.idea/.idea.doors/.idea/workspace.xml	(date 1789938682708)
+@@ -12,29 +12,7 @@
+   <component name="ChangeListManager">
+     <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/InputSchema.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSchema.inputactions" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -98,33 +76,33 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity Attach To: Attach to": "Unity Editor",
+-    "DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider": "Unity Editor",
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.cidr.known.project.marker": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "Unity Attach To.Attach to.executor": "Debug",
+-    "XThreadsFramesViewSplitterKey": "0.34777898",
+-    "cidr.known.project.marker": "true",
+-    "codeWithMe.voiceChat.enabledByDefault": "false",
+-    "git-widget-placeholder": "mooz05/doors-34-bug-001-swap-not-working",
+-    "last_opened_file_path": "/home/moozek/doors",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "preferences.build.unityPlugin"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity Attach To: Attach to&quot;: &quot;Unity Editor&quot;,
++    &quot;DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider&quot;: &quot;Unity Editor&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
++    &quot;Unity Attach To.Attach to.executor&quot;: &quot;Debug&quot;,
++    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.34777898&quot;,
++    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
++    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;mooz05/doors-34-bug-001-swap-not-working&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/home/moozek/doors&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.build.unityPlugin&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+-      <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1" />
++      <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/Unity" />
+       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
+       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+       <option name="PASS_PARENT_ENVS" value="1" />
+@@ -134,7 +112,7 @@
+       <method v="2" />
+     </configuration>
+     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+-      <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1" />
++      <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/Unity" />
+       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
+       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+       <option name="PASS_PARENT_ENVS" value="1" />
+@@ -205,7 +183,9 @@
+     <MESSAGE value="refactor(player): improve item detection logic and add debug logging" />
+     <MESSAGE value="refactor: restructure player and item systems" />
+     <MESSAGE value="chore: remove player prefab and movement script" />
+-    <option name="LAST_COMMIT_MESSAGE" value="chore: remove player prefab and movement script" />
++    <MESSAGE value="added tmp lib for text, and refactored item files locations" />
++    <MESSAGE value="fix(player): prevent swapping with items on pickup cooldown" />
++    <option name="LAST_COMMIT_MESSAGE" value="fix(player): prevent swapping with items on pickup cooldown" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
