@@ -163,6 +163,12 @@ namespace prefabs.player
         /// <param name="newItem">The new item to swap into the inventory.</param>
         private void SwapItems(Item newItem)
         {
+            if (!newItem.CanBePickedUp)
+            {
+                Debug.Log($"<color=cyan><b>[PlayerInputHandler]</b></color> Cannot swap item with item: <color=orange>{newItem.name}</color> due to its Pickup cooldown");
+                return;
+            }
+            
             ItemType targetType = newItem.itemData.itemType;
             
             // 1. Tell the inventory to drop whatever item is occupying this target slot
