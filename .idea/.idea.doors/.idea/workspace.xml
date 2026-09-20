@@ -12,8 +12,29 @@
   <component name="ChangeListManager">
     <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/playerMovement.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/InputSchema.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSchema.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/meleePrefabBase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolData.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/pistolPrefabBase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/rifleData.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/riflePrefabBase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsData.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/Items/utilsPrefabBase.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +112,7 @@
     "XThreadsFramesViewSplitterKey": "0.34777898",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "#31 on megarator100/doors-32-as-player-p…d-add",
+    "git-widget-placeholder": "mooz05/doors-34-bug-001-swap-not-working",
     "last_opened_file_path": "/home/moozek/doors",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -101,7 +122,7 @@
     "settings.editor.selected.configurable": "preferences.build.unityPlugin"
   }
 }]]></component>
-  <component name="RunManager" selected="Unity Attach To.Attach to">
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
@@ -183,7 +204,8 @@
     <MESSAGE value="refactor: reorganize scripts and update scene" />
     <MESSAGE value="refactor(player): improve item detection logic and add debug logging" />
     <MESSAGE value="refactor: restructure player and item systems" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: restructure player and item systems" />
+    <MESSAGE value="chore: remove player prefab and movement script" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: remove player prefab and movement script" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
