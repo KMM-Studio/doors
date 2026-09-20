@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1203ea47d74b8ca0075614d9668890, type: 3}
+  m_Name: rifleData
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemType: 0
+  itemName: karabin
+  physicalPrefab: {fileID: 1842136065386915497, guid: 16cb8f1724fa076f1b524579fa8b7b95, type: 3}
