@@ -10,40 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/item/Item.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/item/Items.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInputHandler.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInventory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerInventory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerStats.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/itemPool.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/itemPool.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/tests.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/tests/ItemDetectionTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/tests/ItemDetectionTests.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/tests/PlayerInfoTests.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/scripts/tests/PlayerInfoTests.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSchema.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSchema.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/ItemTags.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/ItemTags.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/item/Item.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/item/TestItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/item/TestItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/ItemDetection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/ItemDetection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerInfo.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerStats.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player/playerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/DebuggerSwitch.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/SerializableDictionary.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/SerializableDictionary.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/UI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/UI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-    </list>
+    <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -219,7 +186,8 @@
     <MESSAGE value="chore: add player info, debugger switch, and input system configuration" />
     <MESSAGE value="refactor: reorganize scripts and update scene" />
     <MESSAGE value="refactor(player): improve item detection logic and add debug logging" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(player): improve item detection logic and add debug logging" />
+    <MESSAGE value="refactor: restructure player and item systems" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: restructure player and item systems" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
