@@ -5,8 +5,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(Rigidbody))]
 public class playerMovement : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    [Header("Movement Settings")] [SerializeField]
+    private PlayerInfo playerInfo;
 
     [Header("Look Settings")]
     [SerializeField] private float lookSensitivity = 1.2f;
@@ -37,6 +37,11 @@ public class playerMovement : MonoBehaviour
             playerCamera = Camera.main.transform;
         }
 
+        if (playerInfo is null)
+        {
+            playerInfo = GetComponent<PlayerInfo>();
+        }
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -80,7 +85,7 @@ public class playerMovement : MonoBehaviour
 
     private void GetInput()
     {
-        if (playerInput == null) return;
+        if (playerInput is null) return;
 
         var moveAction = playerInput.actions.FindAction("Move");
         if (moveAction != null) _inputVector = moveAction.ReadValue<Vector2>();
@@ -91,7 +96,7 @@ public class playerMovement : MonoBehaviour
 
     private void RotatePlayerAndCamera()
     {
-        if (playerCamera == null) return;
+        if (playerCamera is null) return;
 
         // 1. Horizontal rotation (Yaw) rotates the entire player body
         transform.Rotate(Vector3.up * (_lookVector.x * lookSensitivity));
@@ -114,7 +119,7 @@ public class playerMovement : MonoBehaviour
         right.Normalize();
 
         Vector3 moveDir = (forward * _inputVector.y + right * _inputVector.x).normalized;
-        Vector3 targetVelocity = moveDir * moveSpeed;
+        Vector3 targetVelocity = moveDir * playerInfo.maxSpeed;
 
         _rb.MovePosition(_rb.position + targetVelocity * Time.fixedDeltaTime);
     }
