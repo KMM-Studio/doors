@@ -2,125 +2,171 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
-public class playerMovement : MonoBehaviour
+namespace Game.Player //
 {
-    [Header("Movement Settings")] [SerializeField]
-    private PlayerInfo playerInfo;
-
-    [Header("Look Settings")]
-    [SerializeField] private float lookSensitivity = 1.2f;
-    [SerializeField] private float minPitch = -85f;
-    [SerializeField] private float maxPitch = 85f;
-
-    [FormerlySerializedAs("_playerInput")]
-    [Header("Input")]
-    [Tooltip("Reference to the Player input component")]
-    [SerializeField] private PlayerInput playerInput;
-
-    [Header("References")]
-    [SerializeField] private Transform playerCamera;
-
-    private Rigidbody _rb;
-    private Vector2 _inputVector;
-    private Vector2 _lookVector;
-    private float _cameraPitch;
-
-    private void Start()
+    /// <summary>
+    /// Handles physical player movement, camera rotation, and input polling via Unity Events.
+    /// Integrates directly with the Rigidbody physics system and PlayerStats.
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody))]
+    public class playerMovement : MonoBehaviour
     {
-        _rb = GetComponent<Rigidbody>();
-        _rb.freezeRotation = true;
-        _rb.WakeUp();
+        [Header("Movement Settings")]
+        [Tooltip("Reference to the player's stat configuration (requires maxSpeed).")]
+        [SerializeField] private PlayerStats playerStats;
 
-        if (playerCamera == null && Camera.main != null)
-        {
-            playerCamera = Camera.main.transform;
-        }
+        [Space]
+        [Header("Look Settings")]
+        [Tooltip("Multiplier for mouse/stick movement to adjust camera rotation speed.")]
+        [SerializeField] private float lookSensitivity = 1.2f;
+        [Tooltip("Maximum downward angle in degrees.")]
+        [SerializeField] private float minPitch = -85f;
+        [Tooltip("Maximum upward angle in degrees.")]
+        [SerializeField] private float maxPitch = 85f;
 
-        if (playerInfo is null)
-        {
-            playerInfo = GetComponent<PlayerInfo>();
-        }
+        [Space]
+        [FormerlySerializedAs("_playerInput")]
+        [Header("Input References")]
+        [Tooltip("Reference to the Player Input component handling Unity's new Input System actions.")]
+        [SerializeField] private PlayerInput playerInput;
+
+        [Space]
+        [Header("Camera References")]
+        [Tooltip("The main camera transform attached to the player head.")]
+        [SerializeField] private Transform playerCamera;
         
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+        [Space]
+        [Header("Debug Settings")]
+        [Tooltip("Toggle visual gizmos and rich text console debugging.")]
+        [SerializeField] private bool enableDebug = true;
 
-    private void OnEnable()
-    {
-        ToggleAction("Move", true);
-        ToggleAction("Look", true);
-    }
+        private Rigidbody _rb;
+        private Vector2 _inputVector;
+        private Vector2 _lookVector;
+        private float _cameraPitch;
 
-    private void OnDisable()
-    {
-        ToggleAction("Move", false);
-        ToggleAction("Look", false);
-    }
+        private void Awake()
+        {
+            _rb = GetComponent<Rigidbody>();
+            Debug.Assert(_rb != null, "<color=red><b>[playerMovement]</b></color> Rigidbody is missing on this GameObject!");
+        }
 
-    private void ToggleAction(string actionName, bool enable)
-    {
-        if (playerInput == null) return;
-        var action = playerInput.actions.FindAction(actionName);
-        if (action == null) return;
+        private void Start()
+        {
+            _rb.freezeRotation = true;
+            _rb.WakeUp();
 
-        if (enable) action.Enable();
-        else action.Disable();
-    }
+            if (playerCamera == null && Camera.main != null)
+            {
+                playerCamera = Camera.main.transform;
+                if (enableDebug) Debug.Log("<color=yellow><b>[playerMovement]</b></color> playerCamera auto-assigned to Camera.main.");
+            }
+            
+            Debug.Assert(playerCamera != null, "<color=red><b>[playerMovement]</b></color> Camera reference is completely missing!");
 
-    private void Update()
-    {
-        GetInput();
-    }
+            if (playerStats == null)
+            {
+                playerStats = GetComponent<PlayerStats>();
+                Debug.Assert(playerStats != null, "<color=red><b>[playerMovement]</b></color> PlayerStats component is missing! Movement will fail.");
+            }
+            
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
-    private void LateUpdate()
-    {
-        RotatePlayerAndCamera();
-    }
+        /// <summary>
+        /// Unity Event callback for the Move action. 
+        /// Assign this in the PlayerInput component under Events -> Player -> Move.
+        /// </summary>
+        /// <param name="context">The callback context containing the Vector2 input data.</param>
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            _inputVector = context.ReadValue<Vector2>();
+            
+            if (enableDebug && context.performed)
+            {
+                Debug.Log($"<color=cyan><b>[playerMovement]</b></color> Move event invoked: {_inputVector}");
+            }
+        }
 
-    private void FixedUpdate()
-    {
-        MovePlayer();
-    }
+        /// <summary>
+        /// Unity Event callback for the Look action. 
+        /// Assign this in the PlayerInput component under Events -> Player -> Look.
+        /// </summary>
+        /// <param name="context">The callback context containing the Vector2 look delta.</param>
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            _lookVector = context.ReadValue<Vector2>();
+        }
 
-    private void GetInput()
-    {
-        if (playerInput is null) return;
+        private void LateUpdate()
+        {
+            RotatePlayerAndCamera();
+        }
 
-        var moveAction = playerInput.actions.FindAction("Move");
-        if (moveAction != null) _inputVector = moveAction.ReadValue<Vector2>();
+        private void FixedUpdate()
+        {
+            MovePlayer();
+        }
 
-        var lookAction = playerInput.actions.FindAction("Look");
-        if (lookAction != null) _lookVector = lookAction.ReadValue<Vector2>();
-    }
+        /// <summary>
+        /// Calculates and applies horizontal rotation to the player body and vertical pitch to the camera.
+        /// </summary>
+        private void RotatePlayerAndCamera()
+        {
+            if (!playerCamera) return;
 
-    private void RotatePlayerAndCamera()
-    {
-        if (playerCamera is null) return;
+            // Horizontal rotation (Yaw) rotates the entire player body
+            transform.Rotate(Vector3.up * (_lookVector.x * lookSensitivity));
 
-        // 1. Horizontal rotation (Yaw) rotates the entire player body
-        transform.Rotate(Vector3.up * (_lookVector.x * lookSensitivity));
+            // Vertical rotation (Pitch) clamps locally on the camera
+            _cameraPitch -= _lookVector.y * lookSensitivity;
+            _cameraPitch = Mathf.Clamp(_cameraPitch, minPitch, maxPitch);
+            playerCamera.localRotation = Quaternion.Euler(_cameraPitch, 0f, 0f);
+        }
 
-        // 2. Vertical rotation (Pitch) clamps locally on the camera
-        _cameraPitch -= _lookVector.y * lookSensitivity;
-        _cameraPitch = Mathf.Clamp(_cameraPitch, minPitch, maxPitch);
-        playerCamera.localRotation = Quaternion.Euler(_cameraPitch, 0f, 0f);
-    }
+        /// <summary>
+        /// Calculates the movement vector based on camera facing and applies Rigidbody velocity.
+        /// </summary>
+        private void MovePlayer()
+        {
+            if (!playerCamera || !playerStats) return;
 
-    private void MovePlayer()
-    {
-        if (playerCamera is null || playerInput is null) return;
+            Vector3 forward = playerCamera.forward;
+            Vector3 right = playerCamera.right;
+            
+            forward.y = 0f;
+            right.y = 0f;
+            forward.Normalize();
+            right.Normalize();
 
-        Vector3 forward = playerCamera.forward;
-        Vector3 right = playerCamera.right;
-        forward.y = 0f;
-        right.y = 0f;
-        forward.Normalize();
-        right.Normalize();
+            Vector3 moveDir = (forward * _inputVector.y + right * _inputVector.x).normalized;
+            Vector3 targetVelocity = moveDir * playerStats.maxSpeed;
 
-        Vector3 moveDir = (forward * _inputVector.y + right * _inputVector.x).normalized;
-        Vector3 targetVelocity = moveDir * playerInfo.maxSpeed;
+            _rb.MovePosition(_rb.position + targetVelocity * Time.fixedDeltaTime);
+        }
 
-        _rb.MovePosition(_rb.position + targetVelocity * Time.fixedDeltaTime);
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            if (!enableDebug) return;
+
+            Vector3 currentPos = transform.position;
+
+            // Visual Scene Debugging: Show intended movement direction
+            if (_inputVector.sqrMagnitude > 0.1f && playerCamera != null)
+            {
+                Vector3 forward = playerCamera.forward;
+                Vector3 right = playerCamera.right;
+                forward.y = 0f; right.y = 0f;
+                
+                Vector3 moveDir = (forward.normalized * _inputVector.y + right.normalized * _inputVector.x).normalized;
+                
+                Gizmos.color = Color.green;
+                Gizmos.DrawRay(currentPos, moveDir * 2f);
+                Gizmos.DrawWireSphere(currentPos + moveDir * 2f, 0.2f);
+            }
+        }
+#endif
     }
 }

@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: -5160712889272297405}
   - component: {fileID: 1842136065386915497}
   m_Layer: 9
-  m_Name: TestItem
+  m_Name: utilsPrefabBase
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,4 +207,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525f3b6ddf233e242bf3c8efa866ed11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTags
-  itemType: 0
+  itemData: {fileID: 11400000, guid: d634534d6f846e4acb1fd5147edc1c60, type: 2}
