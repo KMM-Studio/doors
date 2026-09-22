@@ -105,97 +105,122 @@ namespace prefabs.room
             }
             return false;
         }
-
         private bool TryAddSpecificRoomToSocket(GameObject roomPrefab, roomSocket outSocket, bool isMainRoute)
-        {
-            var newRoom = Instantiate(roomPrefab, new Vector3(0, -40, 0), Quaternion.identity);
-            var newRoomSockets = newRoom.GetComponentsInChildren<roomSocket>().ToList();
+    {
+    var newRoom = Instantiate(roomPrefab, new Vector3(0, -40, 0), Quaternion.identity);
+    var newRoomSockets = newRoom.GetComponentsInChildren<roomSocket>().ToList();
 
-            if (newRoomSockets.Count == 0)
-            {
-                Destroy(newRoom);
-                return false;
-            }
+    if (newRoomSockets.Count == 0)
+    {
+        Destroy(newRoom);
+        return false;
+    }
 
-            var newRoomCollider = newRoom.GetComponentInChildren<MeshCollider>(); 
-            if (newRoomCollider != null) newRoomCollider.enabled = false;
+    newRoomSockets = newRoomSockets.OrderBy(x => Guid.NewGuid()).ToList();
 
-            MeshFilter meshFilter = newRoom.GetComponentInChildren<MeshFilter>();
-            Bounds localBounds = meshFilter.sharedMesh.bounds;
-            Vector3 shrunkenExtents = Vector3.Scale(localBounds.extents, meshFilter.transform.lossyScale) * 0.95f;
+    // 1. Move to origin BEFORE doing bounds calculations. 
+    // This ensures Collider.bounds gives us a perfect local axis-aligned box.
+    newRoom.transform.position = Vector3.zero;
+    newRoom.transform.rotation = Quaternion.identity;
+    Physics.SyncTransforms();
 
-            newRoomSockets = newRoomSockets.OrderBy(x => Guid.NewGuid()).ToList();
+    // 2. Grab ALL colliders.
+    Collider[] allColliders = newRoom.GetComponentsInChildren<Collider>();
+    if (allColliders.Length == 0)
+    {
+        Debug.LogWarning($"Room {roomPrefab.name} has no colliders! Overlap check will fail.");
+        Destroy(newRoom);
+        return false;
+    }
 
-            foreach (var inSocket in newRoomSockets)
-            {
-                newRoom.transform.position = Vector3.zero;
-                newRoom.transform.rotation = Quaternion.identity;
+    // 3. Calculate compound bounds using all active colliders
+    Bounds totalBounds = allColliders[0].bounds;
+    for (int i = 1; i < allColliders.Length; i++)
+    {
+        totalBounds.Encapsulate(allColliders[i].bounds);
+    }
 
-                newRoom.transform.rotation = Quaternion.LookRotation(-outSocket.transform.forward, outSocket.transform.up) * Quaternion.Inverse(inSocket.transform.localRotation);
-                newRoom.transform.position += outSocket.transform.position - inSocket.transform.position;
-                
-                Physics.SyncTransforms();
-                
-                Vector3 worldCenter = meshFilter.transform.TransformPoint(localBounds.center);
-                
-                bool isOverlapping = Physics.CheckBox(
-                    worldCenter,
-                    shrunkenExtents,
-                    meshFilter.transform.rotation,
-                    LayerMask.GetMask("room"),
-                    QueryTriggerInteraction.Collide
-                );
+    // Cache the true local center and the physical extents based on the colliders
+    Vector3 localCenter = newRoom.transform.InverseTransformPoint(totalBounds.center);
+    Vector3 shrunkenExtents = totalBounds.extents * 0.95f;
 
-                if (isOverlapping)
-                {   
-                    continue; 
-                }
-                
-                // --- SUCCESSFUL PLACEMENT ---
-                newRoomSockets.Remove(inSocket);
+    // 4. NOW disable all colliders so the room doesn't detect itself
+    foreach (var col in allColliders)
+    {
+        col.enabled = false;
+    }
 
-                if (isMainRoute)
-                {
-                    // Move the UNUSED sockets from the previous room into the branching list for alcoves
-                    foreach (var leftoverSocket in globalAvailableSockets)
-                    {
-                        if (leftoverSocket != outSocket && leftoverSocket != null)
-                        {
-                            _branchingSockets.Add(leftoverSocket);
-                        }
-                    }
+    foreach (var inSocket in newRoomSockets)
+    {
+        newRoom.transform.position = Vector3.zero;
+        newRoom.transform.rotation = Quaternion.identity;
 
-                    // Set the next linear step to ONLY use the new room's sockets
-                    globalAvailableSockets = newRoomSockets;
-                }
-                else
-                {
-                    // This is an alcove. If it has extra sockets, cap them immediately so they don't bleed out.
-                    foreach (var alcoveLeftover in newRoomSockets)
-                    {
-                        if (doorLockedPrefab != null)
-                        {
-                            Instantiate(doorLockedPrefab, alcoveLeftover.transform.position, alcoveLeftover.transform.rotation);
-                        }
-                        Destroy(alcoveLeftover.gameObject);
-                    }
-                }
-                
-                if (doorOpenablePrefab != null)
-                {
-                    Instantiate(doorOpenablePrefab, outSocket.transform.position, outSocket.transform.rotation);
-                }
-                
-                Destroy(outSocket.gameObject);
-                Destroy(inSocket.gameObject);
-                
-                if (newRoomCollider != null) newRoomCollider.enabled = true;
-                
-                return true;
-            }
-            
-            Destroy(newRoom);
-            return false;
+        newRoom.transform.rotation = Quaternion.LookRotation(-outSocket.transform.forward, outSocket.transform.up) * Quaternion.Inverse(inSocket.transform.localRotation);
+        newRoom.transform.position += outSocket.transform.position - inSocket.transform.position;
+        
+        Physics.SyncTransforms();
+        
+        // 5. Calculate where the center of our compound bounding box is in world space now
+        Vector3 worldCenter = newRoom.transform.TransformPoint(localCenter);
+        
+        bool isOverlapping = Physics.CheckBox(
+            worldCenter,
+            shrunkenExtents,
+            newRoom.transform.rotation,
+            LayerMask.GetMask("room"),
+            QueryTriggerInteraction.Collide
+        );
+
+        if (isOverlapping)
+        {   
+            continue; 
         }
+        
+        // --- SUCCESSFUL PLACEMENT ---
+        newRoomSockets.Remove(inSocket);
+
+        if (isMainRoute)
+        {
+            foreach (var leftoverSocket in globalAvailableSockets)
+            {
+                if (leftoverSocket != outSocket && leftoverSocket != null)
+                {
+                    _branchingSockets.Add(leftoverSocket);
+                }
+            }
+            globalAvailableSockets = newRoomSockets;
+        }
+        else
+        {
+            foreach (var alcoveLeftover in newRoomSockets)
+            {
+                if (doorLockedPrefab != null)
+                {
+                    Instantiate(doorLockedPrefab, alcoveLeftover.transform.position, alcoveLeftover.transform.rotation);
+                }
+                Destroy(alcoveLeftover.gameObject);
+            }
+        }
+        
+        if (doorOpenablePrefab != null)
+        {
+            Instantiate(doorOpenablePrefab, outSocket.transform.position, outSocket.transform.rotation);
+        }
+        
+        Destroy(outSocket.gameObject);
+        Destroy(inSocket.gameObject);
+        
+        // 6. Re-enable all colliders for future rooms to detect!
+        foreach (var col in allColliders)
+        {
+            col.enabled = true;
+        }
+        
+        return true;
+    }
+    
+    Destroy(newRoom);
+    return false;
+}
     }
 }
