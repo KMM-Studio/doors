@@ -10,18 +10,9 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="junk">
-      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" afterDir="false" />
+    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="write mapGenerator script">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/mapGenTest.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/mapGenTest.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/MapGenerator.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/MapGenerator.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/MapGenerator.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/MapGenerator.prefab.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/mapGenerator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/mapGenerator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +53,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@ac1faea181f8/Tests/Editor/UGUI/UI/PropertyDrawers/PropertyDrawerTests.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="Toolset" />
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
   "associatedIndex": 7
@@ -150,6 +144,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add map gen thingies" />
     <MESSAGE value="junk" />
-    <option name="LAST_COMMIT_MESSAGE" value="junk" />
+    <MESSAGE value="refactor(mapGenerator): move map generator assets to prefabs/room" />
+    <MESSAGE value="write mapGenerator script" />
+    <option name="LAST_COMMIT_MESSAGE" value="write mapGenerator script" />
   </component>
 </project>
