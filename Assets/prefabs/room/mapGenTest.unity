@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9167852555018252411, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: maxRooms
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 9167852555018252411, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: doorClosedPrefab
@@ -569,7 +569,7 @@ PrefabInstance:
     - target: {fileID: 9167852555018252411, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: exitSafeRoomPrefab
       value: 
-      objectReference: {fileID: 6103887920249415029, guid: d9109916467ea49fa8eb284572893894, type: 3}
+      objectReference: {fileID: 8602631650215954651, guid: fa602728d526f7244b8ffbd8ffd2c286, type: 3}
     - target: {fileID: 9167852555018252411, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: entrySafeRoomPrefab
       value: 
