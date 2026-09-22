@@ -10,7 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="write mapGenerator script">
+    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="feat(room): update map generation test scene settings">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" afterDir="false" />
     </list>
@@ -146,6 +146,9 @@
     <MESSAGE value="junk" />
     <MESSAGE value="refactor(mapGenerator): move map generator assets to prefabs/room" />
     <MESSAGE value="write mapGenerator script" />
-    <option name="LAST_COMMIT_MESSAGE" value="write mapGenerator script" />
+    <MESSAGE value="eliminated overlaps" />
+    <MESSAGE value="feat(room): add room generation assets and editor tools" />
+    <MESSAGE value="feat(room): update map generation test scene settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(room): update map generation test scene settings" />
   </component>
 </project>
