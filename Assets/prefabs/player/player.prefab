@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 2650392961900729630}
   - component: {fileID: 1650459616932802447}
   - component: {fileID: 4631893700399604549}
-  - component: {fileID: 3683831905266293794}
+  - component: {fileID: 9056671457748240779}
   - component: {fileID: 4137851298941979763}
   - component: {fileID: 7196795442251248016}
   - component: {fileID: 3811184597963870785}
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: b645814fcbe454c7b94e841e390a7641, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: c17696a61e88cfb10989dfd97954998f, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3683831905266293794}
-        m_TargetAssemblyTypeName: Game.Player.playerMovement, Assembly-CSharp
+      - m_Target: {fileID: 9056671457748240779}
+        m_TargetAssemblyTypeName: prefabs.player.PlayerMovement, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -116,8 +116,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Gamepad/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3683831905266293794}
-        m_TargetAssemblyTypeName: Game.Player.playerMovement, Assembly-CSharp
+      - m_Target: {fileID: 9056671457748240779}
+        m_TargetAssemblyTypeName: prefabs.player.PlayerMovement, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -319,7 +319,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3683831905266293794
+--- !u!114 &9056671457748240779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,14 +328,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7176765662393322475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 300cf7f3226f59e4b845fd0f9e7575c2, type: 3}
+  m_Script: {fileID: 11500000, guid: ecffac2810934abd8b98e4e71e31824f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::playerMovement
+  m_EditorClassIdentifier: Assembly-CSharp::Game.Player.playerMovement
   playerStats: {fileID: 4137851298941979763}
-  lookSensitivity: 3
+  lookSensitivity: 1.2
   minPitch: -85
   maxPitch: 85
-  playerInput: {fileID: 4576238166705502165}
   playerCamera: {fileID: 1161137040378218426}
   enableDebug: 0
 --- !u!114 &4137851298941979763
@@ -371,7 +370,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   dropPoint: {fileID: 6712522507526296928}
-  enableDebug: 1
+  enableDebug: 0
 --- !u!33 &3811184597963870785
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -405,7 +404,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 26eddbf7db2932cf9b476be472d73e63, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

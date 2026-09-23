@@ -10,7 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="">
+    <list default="true" id="fb662ddc-fb2e-41bc-bac4-fa996a0016de" name="Changes" comment="test(map): add map generation tests">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/InputSchema.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/InputSchema.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
@@ -45,6 +45,11 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="mooz05/doors-24-create-procedural-linear-map-generation-system" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -112,7 +117,6 @@
     "XThreadsFramesViewSplitterKey": "0.34777898",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "mooz05/doors-34-bug-001-swap-not-working",
     "last_opened_file_path": "/home/moozek/doors",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",

@@ -170,7 +170,11 @@ namespace prefabs.player
             }
             
             ItemType targetType = newItem.itemData.itemType;
-            
+
+            if (!_itemInRange.CanBePickedUp)
+            {
+                return;
+            }
             // 1. Tell the inventory to drop whatever item is occupying this target slot
             inventory.DropItem(targetType);
             

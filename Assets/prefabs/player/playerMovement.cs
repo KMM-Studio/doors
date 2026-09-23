@@ -1,15 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
-namespace Game.Player //
+namespace prefabs.player 
 {
     /// <summary>
     /// Handles physical player movement, camera rotation, and input polling via Unity Events.
     /// Integrates directly with the Rigidbody physics system and PlayerStats.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class playerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour
     {
         [Header("Movement Settings")]
         [Tooltip("Reference to the player's stat configuration (requires maxSpeed).")]
@@ -23,12 +22,6 @@ namespace Game.Player //
         [SerializeField] private float minPitch = -85f;
         [Tooltip("Maximum upward angle in degrees.")]
         [SerializeField] private float maxPitch = 85f;
-
-        [Space]
-        [FormerlySerializedAs("_playerInput")]
-        [Header("Input References")]
-        [Tooltip("Reference to the Player Input component handling Unity's new Input System actions.")]
-        [SerializeField] private PlayerInput playerInput;
 
         [Space]
         [Header("Camera References")]
