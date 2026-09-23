@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 7196795442251248016}
   - component: {fileID: 3811184597963870785}
   - component: {fileID: 3823143992435268272}
-  - component: {fileID: 6359864337157141279}
+  - component: {fileID: 3923330749288414960}
   m_Layer: 8
   m_Name: player
   m_TagString: Player
@@ -429,8 +429,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6359864337157141279
-SphereCollider:
+--- !u!136 &3923330749288414960
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -447,8 +447,10 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Height: 2.4
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7490507418947027685
 GameObject:
