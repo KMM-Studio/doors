@@ -10,9 +10,36 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="feat(room): update map generation test scene settings">
+    <list default="true" id="8da037dc-21ec-4adf-8073-6ef7e7ff6fad" name="Changes" comment="feat(room): add map generation test scene settings">
+      <change afterPath="$PROJECT_DIR$/Assets/Tests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator2.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator2.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomDataStructs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomDataStructs.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomTrigger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomTrigger.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.doors/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/playerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/playerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/mapGenTest.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/mapGenTest.unity.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/mapGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/roomParts/doorScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/doorScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/roomParts/doorScript.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/doorScript.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/roomParts/roomSocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomSocket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/roomParts/roomSocket.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/scripts/roomSocket.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-000-elevator.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-000-elevator.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-001-Safestart.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-001-Safestart.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-002.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-002.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-003.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-003.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-098-alcove.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-098-alcove.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-099-endSafeRoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/prefabs/room/rooms/room-099-endSafeRoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/mapGenerationTests.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scripts/mapGenerationTests.cs.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,27 +49,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "MooZeKMZK"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;MooZeKMZK&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/KMM-Studio/doors.git",
-    "accountId": "ce0854b5-6efd-49cd-bdeb-df1d25b7f2bb"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/KMM-Studio/doors.git&quot;,
+    &quot;accountId&quot;: &quot;ce0854b5-6efd-49cd-bdeb-df1d25b7f2bb&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/41/35e57ed5/InvokableCall`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/7d/d59db294/Object.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/08b76a262c874da0853d4cdc5b748adc213200/e5/63e10f03/UnityEvent`1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65dc1190e970438699dcda91354daed72bc00/c5/f9ca697f/Physics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9e5e9156928e44faa47e14b0487b23d95a00/ab/4e1f3dde/NativeInputSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/doorScript.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/scripts/mapGenerator.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/scripts/room.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/prefabs/room/roomParts/roomData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/prefabs/room/scripts/roomTrigger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/InputInteractionContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@7a4e1a2a8194/InputSystem/Runtime/Actions/Interactions/TapInteraction.cs" root0="SKIP_HIGHLIGHTING" />
@@ -56,32 +82,32 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="Toolset" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="3JdtsI4Q6hXlkxMWJj9PuLbaD0N" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "mooz05/doors-24-create-procedural-linear-map-generation-system",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#42 on mooz05/doors-24-create-procedural…ystem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Standalone Player.Start Unity">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$PROJECT_DIR$/../Unity/Hub/Editor/6000.3.24f1/Editor/unityhub-unity-editor-6000.3.24f1" />
@@ -149,6 +175,7 @@
     <MESSAGE value="eliminated overlaps" />
     <MESSAGE value="feat(room): add room generation assets and editor tools" />
     <MESSAGE value="feat(room): update map generation test scene settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(room): update map generation test scene settings" />
+    <MESSAGE value="feat(room): add map generation test scene settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(room): add map generation test scene settings" />
   </component>
 </project>

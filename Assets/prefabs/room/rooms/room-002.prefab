@@ -2443,6 +2443,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620571301574968625}
+  - component: {fileID: 8070163602503692532}
+  - component: {fileID: 7290188723955187189}
+  - component: {fileID: 8767381520990180334}
   m_Layer: 13
   m_Name: room-002
   m_TagString: Untagged
@@ -2469,6 +2472,62 @@ Transform:
   - {fileID: 2603242020559305312}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8070163602503692532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563911239623037549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43342776fcce4c61a91e9aa226e701be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.roomParts.RoomData
+  prewarmCount: 5
+  localCenter: {x: 2, y: 1.2500007, z: 4}
+  localExtents: {x: 3.8, y: 1.1875011, z: 5.7}
+  sockets:
+  - localPosition: {x: 4, y: 0, z: -2}
+    localRotation: {x: 0, y: -1, z: 0, w: 0}
+  - localPosition: {x: 6, y: 0, z: 8}
+    localRotation: {x: 0, y: 0.7071068, z: -0, w: 0.7071068}
+  - localPosition: {x: 0, y: 0, z: 10}
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+--- !u!65 &7290188723955187189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563911239623037549}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.6, y: 2.3750021, z: 11.4}
+  m_Center: {x: 2, y: 1.2500007, z: 4}
+--- !u!114 &8767381520990180334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563911239623037549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa120ca6c6a482b882fe57d3c447c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.scripts.RoomTrigger
+  roomIndex: 0
 --- !u!1001 &4296289368839071300
 PrefabInstance:
   m_ObjectHideFlags: 0

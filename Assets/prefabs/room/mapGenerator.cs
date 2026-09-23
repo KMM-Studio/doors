@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using prefabs.room.scripts;
 using UnityEngine;
 
 namespace prefabs.room
@@ -37,7 +38,7 @@ namespace prefabs.room
 
         [SerializeField] 
         [Tooltip("The current available open sockets for room connection.")]
-        private List<roomSocket> globalAvailableSockets = new List<roomSocket>();
+        private List<RoomSocket> globalAvailableSockets = new List<RoomSocket>();
         
         [Space]
         [Header("Doors")]
@@ -54,7 +55,7 @@ namespace prefabs.room
         private bool enableDebug = true;
 
         // Internal State
-        private readonly List<roomSocket> _branchingSockets = new List<roomSocket>();
+        private readonly List<RoomSocket> _branchingSockets = new List<RoomSocket>();
         private System.Random _rng;
 
 #if UNITY_EDITOR
@@ -182,10 +183,10 @@ namespace prefabs.room
         /// <param name="outSocket">The available socket to connect to.</param>
         /// <param name="isMainRoute">Flag determining if this is the critical path or an optional alcove.</param>
         /// <returns>True if the room was successfully placed without overlapping existing geometry.</returns>
-        private bool TryAddSpecificRoomToSocket(GameObject roomPrefab, roomSocket outSocket, bool isMainRoute)
+        private bool TryAddSpecificRoomToSocket(GameObject roomPrefab, RoomSocket outSocket, bool isMainRoute)
         {
             var newRoom = Instantiate(roomPrefab, new Vector3(0, -40, 0), Quaternion.identity);
-            var newRoomSockets = newRoom.GetComponentsInChildren<roomSocket>().ToList();
+            var newRoomSockets = newRoom.GetComponentsInChildren<RoomSocket>().ToList();
 
             if (newRoomSockets.Count == 0)
             {
