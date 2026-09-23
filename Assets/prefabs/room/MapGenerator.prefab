@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5335169046076064062}
-  - component: {fileID: 9167852555018252411}
+  - component: {fileID: 6404384592754400872}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9167852555018252411
+--- !u!114 &6404384592754400872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5766366660891420477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf6cae8a64636b839ac2850693b4dd8, type: 3}
+  m_Script: {fileID: 11500000, guid: bfbfb45fb5b24e56bdbe9322a56c49ab, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  grid: {fileID: 0}
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.LinearDungeonManager
+  originTransform: {fileID: 5335169046076064062}
+  randomRoomCount: 20
+  startRoomPrefab: {fileID: 9024262971318290557, guid: d69dc656aab1e3469a3e8c989f153f04, type: 3}
+  randomRoomPrefabs:
+  - {fileID: 8070163602503692532, guid: 20ffbd3cc78b2f827b1f6a38cbc5e7d4, type: 3}
+  - {fileID: 6309487082422367601, guid: 150312261ede3fa3fa81f87883203130, type: 3}
+  finalRoomPrefab: {fileID: 7643418998496519214, guid: fa602728d526f7244b8ffbd8ffd2c286, type: 3}
+  lookAhead: 3
+  lookBehind: 3
+  enableDebug: 1

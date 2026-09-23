@@ -5,14 +5,8 @@ using prefabs.room.scripts;
 using Unity.Mathematics;
 using UnityEngine;
 
-// Note: CLAUDE.md recommends using Game.<System> for namespaces (e.g., Game.Rooms). 
-// Kept as prefabs.room to prevent breaking existing Unity Editor script references.
 namespace prefabs.room
 {
-    /// <summary>
-    /// Manages the deterministic procedural generation, pooling, and streaming
-    /// of a linear sequence of rooms ending in a boss/final room.
-    /// </summary>
     public class LinearDungeonManager : MonoBehaviour
     {
         public static LinearDungeonManager Instance;
@@ -20,22 +14,25 @@ namespace prefabs.room
         #region Serialized Fields
 
         [Header("Generation Settings")]
-        public Transform originTransform; // Just an empty GameObject where the dungeon begins
-        public int randomRoomCount = 10; 
+        public Transform originTransform; 
+        public int desiredRoomCount = 10; 
     
         [Header("Prefabs")]
-        public RoomData startRoomPrefab;  // Will be spawned at Index 0
+        public RoomData startRoomPrefab;  
         public RoomData[] randomRoomPrefabs;
-        public RoomData finalRoomPrefab;  // Will be spawned at the end
+        public RoomData[] alcovePrefabs;
+        public RoomData finalRoomPrefab;  
+        
+        [Header("Generation Settings")]
+        [Range(0f, 1f)]
+        public float alcoveSpawnChance = 0.5f;
 
         [Header("Streaming Settings")]
         public int lookAhead = 3;
         public int lookBehind = 3;
         
-
         [Space]
         [Header("Debug & Visualization")]
-        [Tooltip("Toggle visual gizmos and rich console debugging. Disable for production performance.")]
         public bool enableDebug = true;
 
         #endregion
@@ -49,168 +46,270 @@ namespace prefabs.room
         private readonly Dictionary<int, Queue<GameObject>> _roomPools = new Dictionary<int, Queue<GameObject>>();
         private int _currentRoomIndex = -1;
 
-        // Debug state
         private const string LogPrefix = "<color=cyan><b>[LinearDungeonManager]</b></color>";
         private readonly List<Vector3> _debugErrorLocations = new List<Vector3>();
         private readonly List<Ray> _debugSocketRays = new List<Ray>();
 
         #endregion
 
-        /// <summary>
-        /// Initializes the singleton instance and maps prefabs to standardized IDs.
-        /// </summary>
         private void Awake()
         {
             Instance = this;
-            
             ValidateDependencies();
 
-            // Map all prefabs into a single list so prefabIDs stay perfectly synchronized
             _allPrefabs.Add(startRoomPrefab);           
             _allPrefabs.AddRange(randomRoomPrefabs);
             _allPrefabs.Add(finalRoomPrefab);
-            _finalRoomPrefabID = _allPrefabs.Count - 1; // The boss room is always the last ID
-            
-            if (enableDebug)
-            {
-                Debug.Log($"{LogPrefix} Awake complete. Registered <color=yellow>{_allPrefabs.Count}</color> total room prefabs.");
-            }
+            _finalRoomPrefabID = _allPrefabs.Count - 1; 
         }
 
-        /// <summary>
-        /// Validates editor assignments and begins the dungeon generation process.
-        /// </summary>
         private void Start()
         {
-            if (startRoomPrefab == null)
-            {
-                Debug.LogError($"{LogPrefix} <color=red><b>Starting Socket is not assigned!</b></color> Aborting generation.");
-                return;
-            }
-
-            // Kick off the generation when the game starts
+            if (startRoomPrefab == null) return;
             StartCoroutine(GenerateAndPrewarmCoroutine());
         }
 
-        /// <summary>
-        /// Validates required references to fail fast if the Inspector is misconfigured.
-        /// </summary>
         private void ValidateDependencies()
         {
             Debug.Assert(randomRoomPrefabs != null && randomRoomPrefabs.Length > 0, 
-                $"{LogPrefix} <color=red><b>randomRoomPrefabs</b></color> is unassigned or empty!");
+                $"{LogPrefix} <color=red><b>randomRoomPrefabs</b></color> is unassigned!");
             Debug.Assert(finalRoomPrefab != null, 
                 $"{LogPrefix} <color=red><b>finalRoomPrefab</b></color> is unassigned!");
         }
 
         /// <summary>
-        /// Coroutine that calculates the deterministic layout of the dungeon virtually, 
-        /// followed by instantiating and pooling the necessary room instances.
+        /// Pure Unity.Mathematics OBB Overlap Check. 100% Burst & Job System Safe.
         /// </summary>
-        /// <returns>IEnumerator for Coroutine yielding.</returns>
-        public IEnumerator GenerateAndPrewarmCoroutine()
-    {
-        _virtualDungeon.Clear();
-        int[] actualRoomCounts = new int[_allPrefabs.Count];
-
-        int totalRooms = randomRoomCount + 2; // +1 for Start, +1 for Final
-        Vector3 currentSocketPos = originTransform.position;
-        Quaternion currentSocketRot = originTransform.rotation;
-
-        for (int i = 0; i < totalRooms; i++)
+        private static bool CheckOBBIntersection(float3 centerA, float3 extentsA, quaternion rotA, 
+                                                 float3 centerB, float3 extentsB, quaternion rotB)
         {
-            // 1. Pick the correct Prefab ID based on the loop index
-            int prefabID;
-            if (i == 0) prefabID = 0; // The Start Room
-            else if (i == totalRooms - 1) prefabID = _allPrefabs.Count - 1; // The Final Room
-            else prefabID = UnityEngine.Random.Range(1, _allPrefabs.Count - 1); // A Random Room
+            float EPSILON = 1e-4f;
 
-            RoomData prefab = _allPrefabs[prefabID];
-            Vector3 roomPos;
-            Quaternion roomRot;
+            // math.mul replaces quaternion * vector
+            float3 aX = math.mul(rotA, new float3(1, 0, 0)); 
+            float3 aY = math.mul(rotA, new float3(0, 1, 0)); 
+            float3 aZ = math.mul(rotA, new float3(0, 0, 1));
 
-            // 2. Position the room
-            if (i == 0)
-            {
-                // The Start Room doesn't snap to anything, it sits exactly at the origin
-                roomPos = originTransform.position;
-                roomRot = originTransform.rotation;
-            }
-            else
-            {
-                // Normal Rooms snap to the previous socket
-                var entrySocket = prefab.sockets[0];
-                Quaternion targetRotFlipped = currentSocketRot * Quaternion.Euler(0, 180f, 0);
-                roomRot = targetRotFlipped * Quaternion.Inverse(entrySocket.localRotation);
-                Vector3 rotatedEntryOffset = roomRot * entrySocket.localPosition;
-                roomPos = currentSocketPos - rotatedEntryOffset;
-            }
-
-            // 3. Save to virtual dungeon
-            PlacedRoom newRoom = new PlacedRoom
-            {
-                prefabID = prefabID,
-                worldPosition = roomPos,
-                worldRotation = roomRot,
-                worldCenter = roomPos + (roomRot * prefab.localCenter),
-                worldExtents = prefab.localExtents 
-            };
+            float3 bX = math.mul(rotB, new float3(1, 0, 0)); 
+            float3 bY = math.mul(rotB, new float3(0, 1, 0)); 
+            float3 bZ = math.mul(rotB, new float3(0, 0, 1));
             
-            _virtualDungeon.Add(new VirtualRoom { data = newRoom, isLoaded = false });
-            actualRoomCounts[prefabID]++;
+            float3 t = centerB - centerA;
 
-            // Setup Next Socket
-            if (i < totalRooms - 1)
-            {
-                // If the room only has 1 socket (like a Starter Room), we must use index 0.
-                // Otherwise, randomly pick any socket EXCEPT index 0 (which is the entrance we just came through).
-                int exitIndex = (prefab.sockets.Count == 1) ? 0 : UnityEngine.Random.Range(1, prefab.sockets.Count);
-                
-                var exitSocket = prefab.sockets[exitIndex];
-                
-                currentSocketPos = roomPos + (roomRot * exitSocket.localPosition);
-                currentSocketRot = roomRot * exitSocket.localRotation;
-            }
+            float tx = math.dot(t, aX); float ty = math.dot(t, aY); float tz = math.dot(t, aZ);
+
+            float r00 = math.dot(aX, bX); float r01 = math.dot(aX, bY); float r02 = math.dot(aX, bZ);
+            float r10 = math.dot(aY, bX); float r11 = math.dot(aY, bY); float r12 = math.dot(aY, bZ);
+            float r20 = math.dot(aZ, bX); float r21 = math.dot(aZ, bY); float r22 = math.dot(aZ, bZ);
+
+            float ar00 = math.abs(r00) + EPSILON; float ar01 = math.abs(r01) + EPSILON; float ar02 = math.abs(r02) + EPSILON;
+            float ar10 = math.abs(r10) + EPSILON; float ar11 = math.abs(r11) + EPSILON; float ar12 = math.abs(r12) + EPSILON;
+            float ar20 = math.abs(r20) + EPSILON; float ar21 = math.abs(r21) + EPSILON; float ar22 = math.abs(r22) + EPSILON;
+
+            float ra, rb;
+
+            ra = extentsA.x; rb = extentsB.x * ar00 + extentsB.y * ar01 + extentsB.z * ar02; if (math.abs(tx) > ra + rb) return false;
+            ra = extentsA.y; rb = extentsB.x * ar10 + extentsB.y * ar11 + extentsB.z * ar12; if (math.abs(ty) > ra + rb) return false;
+            ra = extentsA.z; rb = extentsB.x * ar20 + extentsB.y * ar21 + extentsB.z * ar22; if (math.abs(tz) > ra + rb) return false;
+
+            ra = extentsA.x * ar00 + extentsA.y * ar10 + extentsA.z * ar20; rb = extentsB.x; if (math.abs(tx * r00 + ty * r10 + tz * r20) > ra + rb) return false;
+            ra = extentsA.x * ar01 + extentsA.y * ar11 + extentsA.z * ar21; rb = extentsB.y; if (math.abs(tx * r01 + ty * r11 + tz * r21) > ra + rb) return false;
+            ra = extentsA.x * ar02 + extentsA.y * ar12 + extentsA.z * ar22; rb = extentsB.z; if (math.abs(tx * r02 + ty * r12 + tz * r22) > ra + rb) return false;
+
+            ra = extentsA.y * ar20 + extentsA.z * ar10; rb = extentsB.y * ar02 + extentsB.z * ar01; if (math.abs(tz * r10 - ty * r20) > ra + rb) return false;
+            ra = extentsA.y * ar21 + extentsA.z * ar11; rb = extentsB.x * ar02 + extentsB.z * ar00; if (math.abs(tz * r11 - ty * r21) > ra + rb) return false;
+            ra = extentsA.y * ar22 + extentsA.z * ar12; rb = extentsB.x * ar01 + extentsB.y * ar00; if (math.abs(tz * r12 - ty * r22) > ra + rb) return false;
+            ra = extentsA.x * ar20 + extentsA.z * ar00; rb = extentsB.y * ar12 + extentsB.z * ar11; if (math.abs(tx * r20 - tz * r00) > ra + rb) return false;
+            ra = extentsA.x * ar21 + extentsA.z * ar01; rb = extentsB.x * ar12 + extentsB.z * ar10; if (math.abs(tx * r21 - tz * r01) > ra + rb) return false;
+            ra = extentsA.x * ar22 + extentsA.z * ar02; rb = extentsB.x * ar11 + extentsB.y * ar10; if (math.abs(tx * r22 - tz * r02) > ra + rb) return false;
+            ra = extentsA.x * ar10 + extentsA.y * ar00; rb = extentsB.y * ar22 + extentsB.z * ar21; if (math.abs(ty * r00 - tx * r10) > ra + rb) return false;
+            ra = extentsA.x * ar11 + extentsA.y * ar01; rb = extentsB.x * ar22 + extentsB.z * ar20; if (math.abs(ty * r01 - tx * r11) > ra + rb) return false;
+            ra = extentsA.x * ar12 + extentsA.y * ar02; rb = extentsB.x * ar21 + extentsB.y * ar20; if (math.abs(ty * r02 - tx * r12) > ra + rb) return false;
+
+            return true; 
         }
 
-        // PREWARM POOLS
-        _roomPools.Clear();
-        for (int i = 0; i < _allPrefabs.Count; i++)
+        public IEnumerator GenerateAndPrewarmCoroutine()
         {
-            _roomPools[i] = new Queue<GameObject>();
-            int targetPoolSize = Mathf.Min(_allPrefabs[i].prewarmCount, actualRoomCounts[i]);
+            _virtualDungeon.Clear();
+            int[] actualRoomCounts = new int[_allPrefabs.Count];
 
-            for (int p = 0; p < targetPoolSize; p++)
+            int totalRooms = desiredRoomCount + 2; 
+
+            for (int i = 0; i < totalRooms; i++)
             {
-                GameObject roomInst = Instantiate(_allPrefabs[i].gameObject);
-                roomInst.SetActive(false);
-                _roomPools[i].Enqueue(roomInst);
-                if (p % 3 == 0) yield return null; 
+                bool roomSuccessfullyPlaced = false;
+                int failedAttempts = 0;
+
+                while (!roomSuccessfullyPlaced)
+                {
+                    // 1. Pick the correct Prefab ID based on the loop index
+                    int prefabID;
+                    if (i == 0) 
+                    {
+                        prefabID = 0; // The Start Room
+                    }
+                    else if (i == totalRooms - 1) 
+                    {
+                        prefabID = _allPrefabs.Count - 1; // The Final Room
+                    }
+                    else 
+                    {
+                        prefabID = UnityEngine.Random.Range(1, _allPrefabs.Count - 1); // A Random Room
+
+                        // PREVENT DUPLICATES IN A ROW (Soft Constraint)
+                        // Only apply this rule if we have at least 2 different random rooms,
+                        // AND we haven't been struggling to place this room (e.g., less than 20 failed attempts).
+                        int relaxationThreshold = 20; 
+    
+                        if (randomRoomPrefabs.Length > 1 && failedAttempts < relaxationThreshold)
+                        {
+                            int prevPrefabID = _virtualDungeon[i - 1].data.prefabID;
+        
+                            // Keep re-rolling until we get a room that is different from the previous one
+                            while (prefabID == prevPrefabID)
+                            {
+                                prefabID = UnityEngine.Random.Range(1, _allPrefabs.Count - 1);
+                            }
+                        }
+                    }
+
+                    RoomData prefab = _allPrefabs[prefabID];
+                    float3 roomPos;
+                    quaternion roomRot;
+                    int entryIndex = 0;
+                    int exitIndex = 0;
+                    
+                    if (i == 0)
+                    {
+                        // Bridge to Unity Engine: Cast Transform properties to Unity.Mathematics types
+                        roomPos = (float3)originTransform.position;
+                        roomRot = (quaternion)originTransform.rotation;
+                    }
+                    else
+                    {
+                        
+                        // ----------------------------------------------------------
+                        // 1. CHOOSE THE EXIT DOOR ON THE PREVIOUS ROOM
+                        // ----------------------------------------------------------
+                        PlacedRoom prevRoom = _virtualDungeon[i - 1].data;
+                        RoomData prevPrefab = _allPrefabs[prevRoom.prefabID];
+
+                        
+                        if (prevPrefab.sockets.Count > 1)
+                        {
+                            // Keep randomly picking a door until we pick one that IS NOT the door we just entered through!
+                            exitIndex = UnityEngine.Random.Range(0, prevPrefab.sockets.Count);
+                            while (exitIndex == prevRoom.entrySocketIndex)
+                            {
+                                exitIndex = UnityEngine.Random.Range(0, prevPrefab.sockets.Count);
+                            }
+                        }
+                        var exitSocket = prevPrefab.sockets[exitIndex];
+
+                        float3 currentSocketPos = prevRoom.worldPosition + math.mul(prevRoom.worldRotation, (float3)exitSocket.localPosition);
+                        quaternion currentSocketRot = math.mul(prevRoom.worldRotation, (quaternion)exitSocket.localRotation);
+
+                        // ----------------------------------------------------------
+                        // 2. CHOOSE THE ENTRY DOOR ON THE NEW ROOM
+                        // ----------------------------------------------------------
+                        
+                        // If this is a normal room (not the final boss room), pick ANY socket as the entry
+                        if (i < totalRooms - 1 && prefab.sockets.Count > 1) 
+                        {
+                            entryIndex = UnityEngine.Random.Range(0, prefab.sockets.Count);
+                        }
+                        var entrySocket = prefab.sockets[entryIndex];
+
+                        // Rotate and position as normal...
+                        quaternion targetRotFlipped = math.mul(currentSocketRot, quaternion.Euler(0f, math.PI, 0f));
+                        roomRot = math.mul(targetRotFlipped, math.inverse((quaternion)entrySocket.localRotation));
+                        
+                        float3 rotatedEntryOffset = math.mul(roomRot, (float3)entrySocket.localPosition);
+                        roomPos = currentSocketPos - rotatedEntryOffset;
+                    }
+
+                    // Overlap check preparation
+                    float3 worldCenter = roomPos + math.mul(roomRot, (float3)prefab.localCenter);
+                    float3 shrunkenExtents = (float3)prefab.localExtents * 0.95f; 
+                    
+                    bool isOverlapping = false;
+                    
+                    for (int j = 0; j < _virtualDungeon.Count; j++)
+                    {
+                        PlacedRoom placed = _virtualDungeon[j].data;
+                        float3 placedShrunkenExtents = placed.worldExtents * 0.95f;
+
+                        if (CheckOBBIntersection(worldCenter, shrunkenExtents, roomRot, 
+                                                 placed.worldCenter, placedShrunkenExtents, placed.worldRotation))
+                        {
+                            isOverlapping = true;
+                            break;
+                        }
+                    }
+
+                    if (!isOverlapping)
+                    {   
+                        if (i > 0)
+                        {
+                            _virtualDungeon[i - 1].data.usedSockets.Add(exitIndex);
+                        }
+                        
+                        HashSet<int> newRoomUsedSockets = new HashSet<int> { entryIndex };
+
+                        PlacedRoom newRoom = new PlacedRoom
+                        {
+                            prefabID = prefabID,
+                            worldPosition = roomPos,
+                            worldRotation = roomRot,
+                            worldCenter = worldCenter, 
+                            worldExtents = (float3)prefab.localExtents,
+                            entrySocketIndex = entryIndex,
+                            usedSockets = newRoomUsedSockets,
+                        };
+                        
+                        _virtualDungeon.Add(new VirtualRoom { data = newRoom, isLoaded = false });
+                        actualRoomCounts[prefabID]++;
+                        
+                        roomSuccessfullyPlaced = true;
+                    }
+                    else
+                    {
+                        failedAttempts++;
+                        if (failedAttempts % 50 == 0) yield return null;
+                    }
+                }
             }
+
+            // PREWARM POOLS
+            _roomPools.Clear();
+            for (int i = 0; i < _allPrefabs.Count; i++)
+            {
+                _roomPools[i] = new Queue<GameObject>();
+                int targetPoolSize = math.min(_allPrefabs[i].prewarmCount, actualRoomCounts[i]);
+
+                for (int p = 0; p < targetPoolSize; p++)
+                {
+                    GameObject roomInst = Instantiate(_allPrefabs[i].gameObject);
+                    roomInst.SetActive(false);
+                    _roomPools[i].Enqueue(roomInst);
+                    if (p % 3 == 0) yield return null; 
+                }
+            }
+
+            SetCurrentRoom(0);
         }
 
-        // LOAD INITIAL WINDOW
-        SetCurrentRoom(0);
-    }
-
-        /// <summary>
-        /// Updates the current room index and triggers a shift in the streamed room window.
-        /// </summary>
-        /// <param name="index">The new room index the player has entered.</param>
         private void SetCurrentRoom(int index)
         {
             if (_currentRoomIndex != index)
             {
-                if (enableDebug) Debug.Log($"{LogPrefix} Player entered room <color=yellow><b>{index}</b></color>. Shifting window...");
+                if (enableDebug) Debug.Log($"{LogPrefix} Player entered room <color=yellow><b>{index}</b></color>.");
                 _currentRoomIndex = index;
                 ShiftRoomWindow();
             }
         }
 
-        /// <summary>
-        /// Iterates through the virtual dungeon to load rooms within the active window 
-        /// (lookAhead + lookBehind) and returns out-of-bounds rooms to the object pool.
-        /// </summary>
         private void ShiftRoomWindow()
         {
             int windowStart = math.max(0, _currentRoomIndex - lookBehind);
@@ -243,11 +342,6 @@ namespace prefabs.room
             }
         }
 
-        /// <summary>
-        /// Retrieves a room instance from the pool or instantiates a new one if the pool is empty.
-        /// </summary>
-        /// <param name="roomData">The virtual layout data dictating position and rotation.</param>
-        /// <returns>An active GameObject representing the room.</returns>
         private GameObject GetRoomFromPool(PlacedRoom roomData)
         {
             Queue<GameObject> pool = _roomPools[roomData.prefabID];
@@ -256,24 +350,21 @@ namespace prefabs.room
             if (pool.Count > 0)
             {
                 roomInstance = pool.Dequeue();
-                roomInstance.transform.position = roomData.worldPosition;
-                roomInstance.transform.rotation = roomData.worldRotation;
+                
+                // Bridge to Unity Engine: Cast Unity.Mathematics back to Unity Types for Transforms
+                roomInstance.transform.position = (Vector3)roomData.worldPosition;
+                roomInstance.transform.rotation = (Quaternion)roomData.worldRotation;
                 roomInstance.SetActive(true);
             }
             else
             {
-                if (enableDebug) Debug.LogWarning($"{LogPrefix} Pool exhaustion for prefabID <color=yellow>{roomData.prefabID}</color>. Instantiating dynamically.");
-                roomInstance = Instantiate(_allPrefabs[roomData.prefabID].gameObject, roomData.worldPosition, roomData.worldRotation);
+                roomInstance = Instantiate(_allPrefabs[roomData.prefabID].gameObject, 
+                    (Vector3)roomData.worldPosition, (Quaternion)roomData.worldRotation);
             }
 
             return roomInstance;
         }
 
-        /// <summary>
-        /// Cleans up event subscriptions and returns an active room back into the inactive pool.
-        /// </summary>
-        /// <param name="prefabID">The internal ID of the prefab type.</param>
-        /// <param name="roomInstance">The physical GameObject being returned.</param>
         private void ReturnRoomToPool(int prefabID, GameObject roomInstance)
         {
             if (roomInstance.TryGetComponent(out RoomTrigger trigger))
@@ -286,15 +377,10 @@ namespace prefabs.room
         }
 
 #if UNITY_EDITOR
-        /// <summary>
-        /// Visually represents the spatial logic of the virtual dungeon in the Unity Editor Scene View.
-        /// Only draws when the GameObject is selected to reduce visual clutter.
-        /// </summary>
         private void OnDrawGizmosSelected()
         {
             if (!enableDebug) return;
 
-            // 1. Draw Virtual Room Bounds
             if (_virtualDungeon != null)
             {
                 for (int i = 0; i < _virtualDungeon.Count; i++)
@@ -302,33 +388,16 @@ namespace prefabs.room
                     var vRoom = _virtualDungeon[i];
                     Gizmos.color = vRoom.isLoaded ? Color.green : Color.gray;
                     
-                    // Draw bounding wire cube
-                    Gizmos.matrix = Matrix4x4.TRS(vRoom.data.worldPosition, vRoom.data.worldRotation, Vector3.one);
+                    // Cast Unity.Mathematics to Unity Engine types for Gizmos
+                    Gizmos.matrix = Matrix4x4.TRS((Vector3)vRoom.data.worldPosition, (Quaternion)vRoom.data.worldRotation, Vector3.one);
                     
-                    // Assuming localExtents represents half-extents (size / 2)
-                    Gizmos.DrawWireCube(vRoom.data.worldCenter - vRoom.data.worldPosition, vRoom.data.worldExtents * 2f);
+                    Vector3 center = (Vector3)(vRoom.data.worldCenter - vRoom.data.worldPosition);
+                    Vector3 size = (Vector3)(vRoom.data.worldExtents * 2f);
+                    
+                    Gizmos.DrawWireCube(center, size);
                 }
             }
             Gizmos.matrix = Matrix4x4.identity;
-
-            // 2. Draw Sockets Connections
-            Gizmos.color = Color.cyan;
-            foreach (var ray in _debugSocketRays)
-            {
-                Gizmos.DrawSphere(ray.origin, 0.5f);
-                Gizmos.DrawRay(ray.origin, ray.direction * 2f);
-            }
-
-            // 3. Draw Edge Case Error Locations
-            if (_debugErrorLocations != null && _debugErrorLocations.Count > 0)
-            {
-                Gizmos.color = Color.red;
-                foreach (var pos in _debugErrorLocations)
-                {
-                    Gizmos.DrawWireSphere(pos, 2f);
-                    Gizmos.DrawIcon(pos, "console.erroricon", true);
-                }
-            }
         }
 #endif
     }

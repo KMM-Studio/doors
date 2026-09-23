@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::prefabs.player.PlayerInputHandler
   inventory: {fileID: 7196795442251248016}
-  enableDebug: 1
+  enableDebug: 0
 --- !u!54 &1650459616932802447
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -332,12 +332,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.Player.playerMovement
   playerStats: {fileID: 4137851298941979763}
-  lookSensitivity: 1.2
+  lookSensitivity: 0.5
   minPitch: -85
   maxPitch: 85
   playerInput: {fileID: 4576238166705502165}
   playerCamera: {fileID: 1161137040378218426}
-  enableDebug: 1
+  enableDebug: 0
 --- !u!114 &4137851298941979763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,7 +371,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   dropPoint: {fileID: 6712522507526296928}
-  enableDebug: 1
+  enableDebug: 0
 --- !u!33 &3811184597963870785
 MeshFilter:
   m_ObjectHideFlags: 0

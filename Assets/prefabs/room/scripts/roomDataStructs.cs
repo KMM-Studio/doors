@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace prefabs.room.scripts
         public float3 localExtents;
         public int socketStartIndex;
         public int socketCount;
+        
     }
 
     public struct JobSocketData
@@ -26,6 +28,8 @@ namespace prefabs.room.scripts
         public quaternion worldRotation;
         public float3 worldCenter;
         public float3 worldExtents;
+        public int entrySocketIndex;
+        public HashSet<int> usedSockets;
     }
 
     // --- Managed Wrapper (For Main Thread Streaming) ---
