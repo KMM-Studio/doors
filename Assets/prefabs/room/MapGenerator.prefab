@@ -45,12 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.LinearDungeonManager
   originTransform: {fileID: 5335169046076064062}
-  randomRoomCount: 20
+  desiredRoomCount: 10
   startRoomPrefab: {fileID: 9024262971318290557, guid: d69dc656aab1e3469a3e8c989f153f04, type: 3}
   randomRoomPrefabs:
   - {fileID: 8070163602503692532, guid: 20ffbd3cc78b2f827b1f6a38cbc5e7d4, type: 3}
   - {fileID: 6309487082422367601, guid: 150312261ede3fa3fa81f87883203130, type: 3}
-  finalRoomPrefab: {fileID: 7643418998496519214, guid: fa602728d526f7244b8ffbd8ffd2c286, type: 3}
+  alcovePrefabs:
+  - {fileID: 4148185655102846266, guid: 65a75502c737dacd2a46175193fc5a36, type: 3}
+  finalRoomPrefab: {fileID: 5644712128432987042, guid: f16b6a2c965e15d9e82e44c5e71dc21d, type: 3}
+  alcoveSpawnChance: 0.5
   lookAhead: 3
   lookBehind: 3
   enableDebug: 1

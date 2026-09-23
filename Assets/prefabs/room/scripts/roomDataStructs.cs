@@ -4,23 +4,10 @@ using UnityEngine;
 
 namespace prefabs.room.scripts
 {
-    // --- Unmanaged Structs (Safe for C# Jobs) ---
-    public struct JobRoomDefinition
-    {
-        public int prefabID;
-        public float3 localCenter;
-        public float3 localExtents;
-        public int socketStartIndex;
-        public int socketCount;
-        
-    }
-
-    public struct JobSocketData
-    {
-        public float3 localPosition;
-        public quaternion localRotation;
-    }
-
+    // =========================================================================
+    // 1. UNMANAGED DATA STRUCTS (Job-Safe)
+    // =========================================================================
+    
     public struct PlacedRoom
     {
         public int prefabID;
@@ -28,8 +15,23 @@ namespace prefabs.room.scripts
         public quaternion worldRotation;
         public float3 worldCenter;
         public float3 worldExtents;
-        public int entrySocketIndex;
-        public HashSet<int> usedSockets;
+        public int entrySocketIndex; 
+        public uint usedSocketsMask; // Bitmask replaces HashSet for Job safety (Max 32 sockets)
+    }
+
+    public struct JobRoomDef
+    {
+        public int prefabID;
+        public float3 localCenter;
+        public float3 localExtents;
+        public int socketStartIndex;
+        public int socketCount;
+    }
+
+    public struct JobSocket
+    {
+        public float3 localPosition;
+        public quaternion localRotation;
     }
 
     // --- Managed Wrapper (For Main Thread Streaming) ---

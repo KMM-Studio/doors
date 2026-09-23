@@ -172,6 +172,14 @@ PrefabInstance:
       value: MapGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
+      propertyPath: lookAhead
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
+      propertyPath: lookBehind
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: finalRoomPrefab
       value: 
       objectReference: {fileID: 4148185655102846266, guid: 65a75502c737dacd2a46175193fc5a36, type: 3}
