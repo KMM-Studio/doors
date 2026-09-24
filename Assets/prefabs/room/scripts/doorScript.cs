@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace prefabs.room.scripts
@@ -10,6 +11,12 @@ namespace prefabs.room.scripts
         private void Open()
         {
             animation.Play("doorOpen");
+        }
+
+        public void Reset()
+        {
+            _isOpen = false;
+            animation.Play("doorClosed");
         }
 
         private void OnTriggerEnter(Collider other)

@@ -40,5 +40,6 @@ namespace prefabs.room.scripts
         public PlacedRoom data;
         public GameObject instance;
         public bool isLoaded;
+        public List<GameObject> activeDoors = new List<GameObject>();
     }
 }

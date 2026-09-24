@@ -184,6 +184,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4148185655102846266, guid: 65a75502c737dacd2a46175193fc5a36, type: 3}
     - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
+      propertyPath: lockedDoorPrefab
+      value: 
+      objectReference: {fileID: 3941101011879201474, guid: 105e3025ec57f5bc2a9f8511fc001e80, type: 3}
+    - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
+      propertyPath: openableDoorPrefab
+      value: 
+      objectReference: {fileID: 820480825383234153, guid: c2cfd0feeaf41b32b8c68ecd96fe4349, type: 3}
+    - target: {fileID: 6404384592754400872, guid: a4cd3da3a4a060be68dae67d9f22fd96, type: 3}
       propertyPath: randomRoomPrefabs.Array.size
       value: 3
       objectReference: {fileID: 0}

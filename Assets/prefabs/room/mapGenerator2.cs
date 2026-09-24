@@ -22,6 +22,11 @@ namespace prefabs.room
         public RoomData[] randomRoomPrefabs;
         public RoomData[] alcovePrefabs; 
         public RoomData finalRoomPrefab;  
+        [Header("Doors")]
+        public GameObject openableDoorPrefab;
+        public GameObject lockedDoorPrefab;
+        
+        
 
         [Header("Alcove Settings")]
         [Range(0f, 1f)]
@@ -38,6 +43,8 @@ namespace prefabs.room
         private readonly List<RoomData> _allPrefabs = new List<RoomData>();
         private readonly List<VirtualRoom> _virtualDungeon = new List<VirtualRoom>();
         private readonly Dictionary<int, Queue<GameObject>> _roomPools = new Dictionary<int, Queue<GameObject>>();
+        private readonly Queue<GameObject> _openableDoorPool = new Queue<GameObject>();
+        private readonly Queue<GameObject> _lockedDoorPool = new Queue<GameObject>();
         private int _currentRoomIndex = -1;
         private const string LogPrefix = "<color=cyan><b>[JobDungeonManager]</b></color>";
 
@@ -178,19 +185,25 @@ namespace prefabs.room
 
                 if (isInsideWindow && !vRoom.isLoaded)
                 {
+                    // Load Room
                     vRoom.instance = GetRoomFromPool(vRoom.data);
-                
                     if (vRoom.instance.TryGetComponent(out RoomTrigger trigger))
                     {
                         trigger.roomIndex = i;
                         trigger.OnPlayerEnteredRoom -= SetCurrentRoom; 
                         trigger.OnPlayerEnteredRoom += SetCurrentRoom;
                     }
-
                     vRoom.isLoaded = true;
+
+                    // ADD THIS: Spawn doors when the room streams in
+                    SpawnDoorsForRoom(vRoom, i);
                 }
                 else if (!isInsideWindow && vRoom.isLoaded)
                 {
+                    // ADD THIS: Despawn doors when the room streams out
+                    DespawnDoorsForRoom(vRoom);
+
+                    // Unload Room
                     ReturnRoomToPool(vRoom.data.prefabID, vRoom.instance);
                     vRoom.instance = null;
                     vRoom.isLoaded = false;
@@ -227,6 +240,78 @@ namespace prefabs.room
             roomInstance.SetActive(false);
             _roomPools[prefabID].Enqueue(roomInstance);
         }
+        
+        private void SpawnDoorsForRoom(VirtualRoom vRoom, int roomIndex)
+{
+    RoomData prefabData = _allPrefabs[vRoom.data.prefabID];
+
+    for (int i = 0; i < prefabData.sockets.Count; i++)
+    {
+        var socket = prefabData.sockets[i];
+        
+        // Calculate the exact world position and rotation of this doorway
+        Vector3 doorPos = (Vector3)(vRoom.data.worldPosition + math.mul(vRoom.data.worldRotation, (float3)socket.localPosition));
+        Quaternion doorRot = (Quaternion)math.mul(vRoom.data.worldRotation, (quaternion)socket.localRotation);
+
+        // Check our bitmask: Is this socket used?
+        bool isUsed = (vRoom.data.usedSocketsMask & (1u << i)) != 0;
+
+        if (!isUsed)
+        {
+            // UNUSED SOCKET -> Spawn Locked Door / Wall
+            GameObject lockedDoor = GetDoorFromPool(lockedDoorPrefab, _lockedDoorPool, doorPos, doorRot);
+            vRoom.activeDoors.Add(lockedDoor);
+        }
+        else if (i == vRoom.data.entrySocketIndex && roomIndex != 0)
+        {
+            // USED ENTRY SOCKET -> Spawn Openable Door 
+            // (We skip roomIndex 0 so the player doesn't spawn facing a door directly behind them)
+            GameObject openableDoor = GetDoorFromPool(openableDoorPrefab, _openableDoorPool, doorPos, doorRot);
+            vRoom.activeDoors.Add(openableDoor);
+        }
+    }
+}
+
+private GameObject GetDoorFromPool(GameObject prefab, Queue<GameObject> pool, Vector3 pos, Quaternion rot)
+{
+    if (prefab == null) return null; // Safety check in case you left it empty in Inspector
+
+    GameObject door;
+    if (pool.Count > 0)
+    {
+        door = pool.Dequeue();
+        door.transform.position = pos;
+        door.transform.rotation = rot;
+        door.SetActive(true);
+    }
+    else
+    {
+        door = Instantiate(prefab, pos, rot);
+    }
+    return door;
+}
+
+private void DespawnDoorsForRoom(VirtualRoom vRoom)
+{
+    foreach (GameObject door in vRoom.activeDoors)
+    {
+        if (!door) continue;
+        
+        // ADD THIS: Look for your door script and reset it
+        if (door.TryGetComponent(out DoorScript doorScript))
+        {
+            doorScript.Reset();
+        }
+        
+        door.SetActive(false);
+        
+        if (door.name.Contains(openableDoorPrefab.name))
+            _openableDoorPool.Enqueue(door);
+        else
+            _lockedDoorPool.Enqueue(door);
+    }
+    vRoom.activeDoors.Clear();
+}
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
