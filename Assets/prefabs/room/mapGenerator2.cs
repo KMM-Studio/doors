@@ -109,7 +109,6 @@ namespace prefabs.room
                 // Color coding: Green = Loaded, Gray = Unloaded, Yellow = Current Room
                 Gizmos.color = mainIdx == _currentRoomIndex ? Color.yellow : vRoom.isLoaded ? Color.green : Color.gray;
 
-                // FIX: Inaccurate Box Drawing
                 // Set the matrix origin directly to worldCenter to prevent applying worldRotation twice.
                 Gizmos.matrix = Matrix4x4.TRS(vRoom.data.worldCenter, vRoom.data.worldRotation, Vector3.one);
                 var size = (Vector3)(vRoom.data.worldExtents * 2f);
@@ -265,9 +264,7 @@ namespace prefabs.room
             nativePlacedRooms.Dispose();
             nativeRoomCounts.Dispose();
 
-            // --- FIX: ALCOVE STREAMING ---
-            // Map alcoves to their respective main-path rooms based on distance,
-            // avoiding shifting the stream window entirely out of bounds.
+            // --- ALCOVE STREAMING FIX ---
             MapAlcovesToMainRooms();
             // -----------------------------
 
@@ -283,7 +280,7 @@ namespace prefabs.room
 
         /// <summary>
         ///     Analyzes the virtual dungeon array and ensures alcoves are bound to the array index of
-        ///     their host main room so they load and unload together.
+        ///     their host main room by checking exact physical socket connections.
         /// </summary>
         private void MapAlcovesToMainRooms()
         {
@@ -310,31 +307,66 @@ namespace prefabs.room
                 }
             }
 
-            // Phase 2: Create the lookup array
+            // Phase 2: Map rooms to their stream controllers using exact socket distances
             for (var i = 0; i < _virtualDungeon.Count; i++)
+            {
                 if (mainRooms.Contains(i))
                 {
                     _roomMainIndices[i] = i; // Main rooms map to themselves
+                    continue;
                 }
-                else
-                {
-                    // For alcoves, locate the nearest main room to act as the streaming anchor
-                    var closestMain = 0;
-                    var minDistSq = float.MaxValue;
 
-                    foreach (var mainIdx in mainRooms)
+                // If it's an alcove, find the exact main room socket it connects to
+                var alcoveData = _virtualDungeon[i].data;
+                var alcovePrefab = _allPrefabs[alcoveData.prefabID];
+                var alcoveEntrySocket = alcovePrefab.sockets[alcoveData.entrySocketIndex];
+
+                // Calculate the exact world space position of the alcove's doorway
+                var alcoveEntryPos = (Vector3)(alcoveData.worldPosition +
+                                               math.mul(alcoveData.worldRotation, alcoveEntrySocket.localPosition));
+
+                var foundParent = false;
+                var fallbackMain = 0;
+                var minDistSq = float.MaxValue;
+
+                foreach (var mainIdx in mainRooms)
+                {
+                    var mainData = _virtualDungeon[mainIdx].data;
+                    var mainPrefab = _allPrefabs[mainData.prefabID];
+
+                    // Check all used sockets on this specific main room
+                    for (var s = 0; s < mainPrefab.sockets.Count; s++)
                     {
-                        var distSq = math.distancesq(_virtualDungeon[i].data.worldPosition,
-                            _virtualDungeon[mainIdx].data.worldPosition);
+                        var isUsed = (mainData.usedSocketsMask & (1u << s)) != 0;
+                        if (!isUsed) continue;
+
+                        var mainSocket = mainPrefab.sockets[s];
+                        var mainSocketPos = (Vector3)(mainData.worldPosition +
+                                                      math.mul(mainData.worldRotation, mainSocket.localPosition));
+
+                        var distSq = math.distancesq(alcoveEntryPos, mainSocketPos);
+
+                        // If the sockets physically touch, we found the definitive parent
+                        if (distSq < 0.1f)
+                        {
+                            _roomMainIndices[i] = mainIdx;
+                            foundParent = true;
+                            break;
+                        }
+
+                        // Track the closest socket just in case of severe precision loss
                         if (distSq < minDistSq)
                         {
                             minDistSq = distSq;
-                            closestMain = mainIdx;
+                            fallbackMain = mainIdx;
                         }
                     }
 
-                    _roomMainIndices[i] = closestMain;
+                    if (foundParent) break;
                 }
+
+                if (!foundParent) _roomMainIndices[i] = fallbackMain;
+            }
         }
 
         /// <summary>
@@ -347,11 +379,7 @@ namespace prefabs.room
             for (var i = 0; i < _allPrefabs.Count; i++)
             {
                 _roomPools[i] = new Queue<GameObject>();
-                // Assuming RoomData has a prewarmCount, falling back to 5 if not found, 
-                // but keeping your original math.min logic intention.
-                var targetPoolSize =
-                    math.min(10,
-                        actualRoomCounts[i]); // Defaulted 10, adjust to your RoomData.prewarmCount if available
+                var targetPoolSize = math.min(10, actualRoomCounts[i]);
 
                 for (var p = 0; p < targetPoolSize; p++)
                 {
@@ -391,8 +419,7 @@ namespace prefabs.room
         private void ShiftRoomWindow()
         {
             var windowStart = math.max(0, _currentRoomIndex - lookBehind);
-            var windowEnd =
-                _currentRoomIndex + lookAhead; // Cap removed here, bounded gracefully by the loop logic below.
+            var windowEnd = _currentRoomIndex + lookAhead;
 
 #if UNITY_EDITOR
             if (enableDebug)
