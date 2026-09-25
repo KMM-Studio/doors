@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43342776fcce4c61a91e9aa226e701be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.roomParts.RoomData
-  prewarmCount: 30
+  prewarmCount: 50
   isComplexShape: 0
   blockSize: {x: 2, y: 2.5, z: 2}
   oversampleFactor: 1
