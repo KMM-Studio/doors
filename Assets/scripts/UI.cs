@@ -28,7 +28,10 @@ public class UI : MonoBehaviour
     [SerializeField] private bool enableDebug = true;
 
     
-    
+    public Slider healthBar;
+    public TextMeshProUGUI healthText;
+    [SerializeField] private float targetHealth;
+    [SerializeField] private float animationSpeed;
 
     private void Awake()
     {
@@ -39,18 +42,22 @@ public class UI : MonoBehaviour
             "<color=red><b>[UI]</b></color> Inventory slots array is missing or under-populated! Requires at least 4 slots.", this);
         Debug.Assert(changeText != null,
             "<color=red><b>[UI]</b></color> Change Text reference is not assigned in the Inspector!", this);
+        
+        targetHealth = healthBar.maxValue;
     }
 
     private void OnEnable()
     {
         PlayerInputHandler.OnItemPickupChanged += UpdateItemPickup;
         PlayerInventory.OnInventoryChanged += UpdateItemUI;
+        PlayerStats.OnHealthChanged += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
         PlayerInputHandler.OnItemPickupChanged -= UpdateItemPickup;
         PlayerInventory.OnInventoryChanged -= UpdateItemUI;
+        PlayerStats.OnHealthChanged -= UpdateHealthBar;
     }
 
     /// <summary>
@@ -124,6 +131,21 @@ public class UI : MonoBehaviour
 
             if (enableDebug)
                 Debug.Log($"<color=cyan><b>[UI]</b></color> Inventory container visibility set to: <color={(hasAnyItem ? "green" : "grey")}>{hasAnyItem}</color>");
+        }
+    }
+
+    private void UpdateHealthBar(float currentHealth)
+    {   
+        targetHealth = currentHealth;
+        healthText.text = currentHealth * 100  + "%";
+    }
+    
+    void Update()
+    {
+        // If the slider isn't at the target health, smoothly slide it over
+        if (Mathf.Abs(healthBar.value - targetHealth) > 0.01f)
+        {
+            healthBar.value = Mathf.Lerp(healthBar.value, targetHealth, Time.deltaTime * animationSpeed);
         }
     }
 
