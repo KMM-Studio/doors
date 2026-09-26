@@ -17,7 +17,7 @@ public class ItemPool : MonoBehaviour
     [Header("Runtime State")]
     [Tooltip("Tracks available 3D models queued for each ItemData type.")]
     private Dictionary<ItemData, Queue<Item>> pool = new Dictionary<ItemData, Queue<Item>>();
-    
+
     [Header("Debug Settings")]
     [Tooltip("Toggle visual gizmos and console debugging logs.")]
     [SerializeField] private bool enableDebug = true;
@@ -45,7 +45,6 @@ public class ItemPool : MonoBehaviour
     /// <param name="physicalItem">The specific Item instance being picked up or despawned.</param>
     public void StoreInPool(Item physicalItem)
     {
-        // Edge Case: Prevent null reference exceptions
         if (physicalItem == null)
         {
             if (enableDebug) Debug.LogError("<color=red><b>[ItemPool]</b></color> Attempted to store a null item in the pool!");
@@ -53,8 +52,7 @@ public class ItemPool : MonoBehaviour
         }
 
         ItemData data = physicalItem.itemData;
-            
-        // Edge Case: Validate ItemData existence
+
         if (data == null)
         {
             if (enableDebug) Debug.LogError($"<color=red><b>[ItemPool]</b></color> Item <color=yellow>{physicalItem.gameObject.name}</color> has no assigned ItemData!");
@@ -66,8 +64,8 @@ public class ItemPool : MonoBehaviour
 
         // Park the item "under the map" by deactivating it and hiding it in the pool
         physicalItem.gameObject.SetActive(false);
-        physicalItem.transform.SetParent(transform); 
-            
+        physicalItem.transform.SetParent(transform);
+
         pool[data].Enqueue(physicalItem);
 
         if (enableDebug)
@@ -80,12 +78,13 @@ public class ItemPool : MonoBehaviour
     /// </summary>
     /// <param name="data">The scriptable object data defining the item.</param>
     /// <param name="spawnPosition">The Vector3 world coordinates for the item drop.</param>
-    public void SpawnFromPool(ItemData data, Vector3 spawnPosition)
+    /// <returns>The physical Item instance spawned or pulled from the pool, or null if failed.</returns>
+    public Item SpawnFromPool(ItemData data, Vector3 spawnPosition)
     {
         if (data == null)
         {
             if (enableDebug) Debug.LogError("<color=red><b>[ItemPool]</b></color> Spawn failed: Provided ItemData is null.");
-            return;
+            return null;
         }
 
         // 1. If we have a parked 3D model of this exact item, pull it out
@@ -95,19 +94,19 @@ public class ItemPool : MonoBehaviour
             parkedItem.transform.position = spawnPosition;
             parkedItem.transform.SetParent(null);
             parkedItem.gameObject.SetActive(true);
-            parkedItem.ApplyPickupCooldown(2f); // Prevent instant re-pickup
-                
+            parkedItem.ApplyPickupCooldown(2f);
+
             if (enableDebug)
                 Debug.Log($"<color=green><b>[ItemPool]</b></color> Reusing <color=yellow>{data.name}</color> from pool. Remaining available: {pool[data].Count}");
-                
-            return;
+
+            return parkedItem;
         }
 
         // Edge Case: Missing prefab reference on the ScriptableObject
         if (data.physicalPrefab == null)
         {
             if (enableDebug) Debug.LogError($"<color=red><b>[ItemPool]</b></color> Spawn failed: <color=yellow>{data.name}</color> lacks a physicalPrefab reference.");
-            return;
+            return null;
         }
 
         // 2. ONLY if the pool is completely empty do we ever use Instantiate
@@ -117,6 +116,8 @@ public class ItemPool : MonoBehaviour
 
         if (enableDebug)
             Debug.Log($"<color=magenta><b>[ItemPool]</b></color> Pool empty. Instantiating new <color=yellow>{data.name}</color>.");
+
+        return newItem;
     }
 
 #if UNITY_EDITOR
@@ -124,12 +125,10 @@ public class ItemPool : MonoBehaviour
     {
         if (!enableDebug) return;
 
-        // Visualize the central pool storage hub
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, new Vector3(2f, 2f, 2f));
 
-        // Visualize currently parked items resting inside the pool hierarchy
-        Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.5f); // Transparent yellow
+        Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.5f);
         foreach (Transform child in transform)
         {
             if (!child.gameObject.activeInHierarchy)

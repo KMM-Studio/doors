@@ -6,44 +6,60 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Handles the primary user interface updates for player inventory and interaction prompts.
-/// Listens to global player events to reflect current item states and active selection.
+/// Listens to global player events to reflect current item states, active selection, 
+/// and dynamically adjusts layout visibility for right-aligned inventory slots.
 /// </summary>
 [RequireComponent(typeof(RectTransform))]
 public class UI : MonoBehaviour
 {
-    [Header("UI References")] 
+    [Header("UI References")]
+    [Tooltip("The main container holding all inventory slots. Will be hidden if the inventory is completely empty.")]
+    public GameObject inventoryContainer;
+
     [Tooltip("Assign in order: Element 0 = Primary, 1 = Secondary, 2 = Melee, 3 = Utils")]
-    public Image[] inventorySlots; 
-        
+    public Image[] inventorySlots;
+
     [Space]
     [Tooltip("Text element shown when looking at an interactable or pickup item.")]
     public TextMeshProUGUI changeText;
-        
+
     [Header("Debug Settings")]
     [Tooltip("Toggle visual and console debugging for inventory UI state changes.")]
     [SerializeField] private bool enableDebug = true;
 
+    
+    public Slider healthBar;
+    public TextMeshProUGUI healthText;
+    [SerializeField] private float targetHealth;
+    [SerializeField] private float animationSpeed;
+
     private void Awake()
     {
         // Fail-Safe Asserts
-        Debug.Assert(inventorySlots != null && inventorySlots.Length >= 4, 
-            "<color=red><b>[UI]</b></color> Inventory slots array is missing or under-populated! Requires at least 4 slots.");
-        Debug.Assert(changeText != null, 
-            "<color=red><b>[UI]</b></color> Change Text reference is not assigned in the Inspector!");
+        Debug.Assert(inventoryContainer != null,
+            "<color=red><b>[UI]</b></color> Inventory Container reference is not assigned in the Inspector!", this);
+        Debug.Assert(inventorySlots != null && inventorySlots.Length >= 4,
+            "<color=red><b>[UI]</b></color> Inventory slots array is missing or under-populated! Requires at least 4 slots.", this);
+        Debug.Assert(changeText != null,
+            "<color=red><b>[UI]</b></color> Change Text reference is not assigned in the Inspector!", this);
+        
+        targetHealth = healthBar.maxValue;
     }
 
     private void OnEnable()
     {
         PlayerInputHandler.OnItemPickupChanged += UpdateItemPickup;
-        PlayerInventory.OnInventoryChanged += UpdateItemUI; 
+        PlayerInventory.OnInventoryChanged += UpdateItemUI;
+        PlayerStats.OnHealthChanged += UpdateHealthBar;
     }
 
     private void OnDisable()
     {
         PlayerInputHandler.OnItemPickupChanged -= UpdateItemPickup;
         PlayerInventory.OnInventoryChanged -= UpdateItemUI;
+        PlayerStats.OnHealthChanged -= UpdateHealthBar;
     }
-        
+
     /// <summary>
     /// Toggles the visibility of the interaction prompt text.
     /// </summary>
@@ -53,7 +69,7 @@ public class UI : MonoBehaviour
         if (changeText != null)
         {
             changeText.gameObject.SetActive(enable);
-                
+
             if (enableDebug)
             {
                 string stateColor = enable ? "green" : "grey";
@@ -64,11 +80,12 @@ public class UI : MonoBehaviour
 
     /// <summary>
     /// Rebuilds the visual state of the inventory slots based on the provided inventory data payload.
-    /// Highlights the currently selected item and adjusts opacity for occupied/empty slots.
+    /// Disables empty slots to allow HorizontalLayoutGroup to dynamically align active items to the right.
+    /// Hides the entire inventory container if no items are held.
     /// </summary>
     /// <param name="inventory">The updated player inventory state payload.</param>
     private void UpdateItemUI(PlayerInventory inventory)
-    {   
+    {
         if (inventory == null)
         {
             if (enableDebug) Debug.LogWarning("<color=orange><b>[UI]</b></color> Received null PlayerInventory payload.");
@@ -76,10 +93,11 @@ public class UI : MonoBehaviour
         }
 
         ItemType currentItem = inventory.CurrentItemType;
-            
+        bool hasAnyItem = false;
+
         if (enableDebug)
             Debug.Log($"<color=cyan><b>[UI]</b></color> Refreshing Inventory. Current Active Item: <b>{currentItem}</b>");
-            
+
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             if (inventorySlots[i] == null)
@@ -93,16 +111,41 @@ public class UI : MonoBehaviour
             bool isOccupied = inventory.GetItem(slotType) != null;
             bool isCurrent = slotType == currentItem;
 
-            if (isCurrent)
+            // Toggle visibility so the Horizontal Layout Group can rebuild and snap items to the right
+            inventorySlots[i].gameObject.SetActive(isOccupied);
+
+            if (isOccupied)
             {
-                inventorySlots[i].color = isOccupied ? Color.yellow : new Color(1f, 0.92f, 0.016f, 0.5f);
-                inventorySlots[i].transform.localScale = new Vector3(1.15f, 1.15f, 1f);
+                hasAnyItem = true;
+
+                // Highlight current active item and scale it up slightly
+                inventorySlots[i].color = isCurrent ? Color.yellow : Color.white;
+                inventorySlots[i].transform.localScale = isCurrent ? new Vector3(1.15f, 1.15f, 1f) : Vector3.one;
             }
-            else
-            {
-                inventorySlots[i].color = isOccupied ? Color.white : new Color(1f, 1f, 1f, 0.2f);
-                inventorySlots[i].transform.localScale = Vector3.one; 
-            }
+        }
+
+        // Hide the entire UI bar if there are no items to display
+        if (inventoryContainer != null)
+        {
+            inventoryContainer.SetActive(hasAnyItem);
+
+            if (enableDebug)
+                Debug.Log($"<color=cyan><b>[UI]</b></color> Inventory container visibility set to: <color={(hasAnyItem ? "green" : "grey")}>{hasAnyItem}</color>");
+        }
+    }
+
+    private void UpdateHealthBar(float currentHealth)
+    {   
+        targetHealth = currentHealth;
+        healthText.text = currentHealth * 100  + "%";
+    }
+    
+    void Update()
+    {
+        // If the slider isn't at the target health, smoothly slide it over
+        if (Mathf.Abs(healthBar.value - targetHealth) > 0.01f)
+        {
+            healthBar.value = Mathf.Lerp(healthBar.value, targetHealth, Time.deltaTime * animationSpeed);
         }
     }
 
@@ -116,13 +159,13 @@ public class UI : MonoBehaviour
         {
             for (int i = 0; i < inventorySlots.Length; i++)
             {
-                if (inventorySlots[i] != null)
+                // Only draw bounds for slots that are currently active in the hierarchy
+                if (inventorySlots[i] != null && inventorySlots[i].gameObject.activeInHierarchy)
                 {
                     RectTransform rt = inventorySlots[i].rectTransform;
                     Vector3[] corners = new Vector3[4];
                     rt.GetWorldCorners(corners);
 
-                    // Edge Case Visualization: Draw red cross over unassigned/missing slots, green box over valid ones
                     Gizmos.color = Color.green;
                     Gizmos.DrawLine(corners[0], corners[1]);
                     Gizmos.DrawLine(corners[1], corners[2]);

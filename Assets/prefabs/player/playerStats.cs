@@ -1,14 +1,26 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+namespace prefabs.player
 {
-    [Header("Player Stats")]
-    public int maxHealth = 100;
-    public int currentHealth;
-    public float maxSpeed = 5f;
-    
-    private void Awake()
+    public class PlayerStats : MonoBehaviour
     {
-        if (currentHealth <= 0) currentHealth = maxHealth;
+        [Header("Player Stats")]
+        public int maxHealth = 100;
+        public int currentHealth;
+        public float maxSpeed = 5f;
+    
+        public static event Action<float> OnHealthChanged;
+    
+        private void Awake()
+        {
+            if (currentHealth <= 0) currentHealth = maxHealth;
+        }
+    
+        private void Update()
+        {
+            OnHealthChanged?.Invoke((float)currentHealth / maxHealth);
+        }
     }
 }
