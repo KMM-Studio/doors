@@ -114,3 +114,5 @@ InitTestScene*.unity*
 Thumbs.db
 Thumbs.db:encryptstream
 Desktop.ini
+
+/[Pp]ackages/com.unity.ide.rider/
