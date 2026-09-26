@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 6309487082422367601, guid: 150312261ede3fa3fa81f87883203130, type: 3}
   - {fileID: 3131149859982689524, guid: b4b1651c3f70ca167bf68bb3da640c49, type: 3}
   - {fileID: 5644712128432987042, guid: f16b6a2c965e15d9e82e44c5e71dc21d, type: 3}
+  - {fileID: 4963733317215105473, guid: 314292e0fe7211041b6a3ddfc5368f3f, type: 3}
   alcovePrefabs:
   - {fileID: 8882109766570719414, guid: d9109916467ea49fa8eb284572893894, type: 3}
   finalRoomPrefab: {fileID: 4148185655102846266, guid: 65a75502c737dacd2a46175193fc5a36, type: 3}
@@ -61,3 +62,4 @@ MonoBehaviour:
   lookAhead: 2
   lookBehind: 2
   enableDebug: 1
+  debugSeed: 0

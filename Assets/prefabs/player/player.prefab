@@ -370,7 +370,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  dropPoint: {fileID: 6712522507526296928}
+  playerCamera: {fileID: 127760796650511411}
+  dropForce: 3
   enableDebug: 0
 --- !u!33 &3811184597963870785
 MeshFilter:
