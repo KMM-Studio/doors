@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - roomSocket
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - itemPhysics
+  - itemLogic
   - 
   - room
   - 
