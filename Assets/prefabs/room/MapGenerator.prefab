@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5766366660891420477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5335169046076064062}
+  - component: {fileID: 6404384592754400872}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5335169046076064062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766366660891420477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6404384592754400872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5766366660891420477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfbfb45fb5b24e56bdbe9322a56c49ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.room.LinearDungeonManager
+  originTransform: {fileID: 5335169046076064062}
+  desiredRoomCount: 50
+  startRoomPrefab: {fileID: 9024262971318290557, guid: d69dc656aab1e3469a3e8c989f153f04, type: 3}
+  randomRoomPrefabs:
+  - {fileID: 8070163602503692532, guid: 20ffbd3cc78b2f827b1f6a38cbc5e7d4, type: 3}
+  - {fileID: 6309487082422367601, guid: 150312261ede3fa3fa81f87883203130, type: 3}
+  - {fileID: 3131149859982689524, guid: b4b1651c3f70ca167bf68bb3da640c49, type: 3}
+  - {fileID: 5644712128432987042, guid: f16b6a2c965e15d9e82e44c5e71dc21d, type: 3}
+  alcovePrefabs:
+  - {fileID: 8882109766570719414, guid: d9109916467ea49fa8eb284572893894, type: 3}
+  finalRoomPrefab: {fileID: 4148185655102846266, guid: 65a75502c737dacd2a46175193fc5a36, type: 3}
+  openableDoorPrefab: {fileID: 820480825383234153, guid: c2cfd0feeaf41b32b8c68ecd96fe4349, type: 3}
+  lockedDoorPrefab: {fileID: 3941101011879201474, guid: 105e3025ec57f5bc2a9f8511fc001e80, type: 3}
+  alcoveSpawnChance: 0.5
+  lookAhead: 2
+  lookBehind: 2
+  enableDebug: 1
