@@ -29,14 +29,14 @@ namespace prefabs.enemies
 
             if (_currentTarget)
             {
-                _agent.isStopped = false;
+                //_agent.isStopped = false;
                 _agent.destination = _currentTarget.position;
             }
             else
             {
                 // If no one has attacked yet (or all attackers are dead), stop moving
                 // Alternatively, you could put patrol logic here
-                _agent.isStopped = true;
+                //_agent.isStopped = true;
             }
         }
     }
