@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4aba41b6948f914d8cef13d0b360a73, type: 3}
+  m_Name: Melee
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.item.MeleeItemData
+  itemType: 2
+  itemName: "N\xF3\u017C"
+  physicalPrefab: {fileID: 2087267419151603507, guid: 9e416b80a6912a44795c918d1ab82a0a, type: 3}
+  viewModelPrefab: {fileID: 6338980860057327426, guid: 1e8d39ca0068ed04ba77aa49d9f5ec5d, type: 3}
+  power: 20
+  actionRate: 0.5
+  maxMagSize: 30
+  hitRange: 2

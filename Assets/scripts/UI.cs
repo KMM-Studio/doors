@@ -27,7 +27,7 @@ public class UI : MonoBehaviour
     [Tooltip("Toggle visual and console debugging for inventory UI state changes.")]
     [SerializeField] private bool enableDebug = true;
 
-    
+
     public Slider healthBar;
     public TextMeshProUGUI healthText;
     [SerializeField] private float targetHealth;
@@ -42,7 +42,7 @@ public class UI : MonoBehaviour
             "<color=red><b>[UI]</b></color> Inventory slots array is missing or under-populated! Requires at least 4 slots.", this);
         Debug.Assert(changeText != null,
             "<color=red><b>[UI]</b></color> Change Text reference is not assigned in the Inspector!", this);
-        
+
         targetHealth = healthBar.maxValue;
     }
 
@@ -108,7 +108,13 @@ public class UI : MonoBehaviour
             }
 
             ItemType slotType = (ItemType)i;
-            bool isOccupied = inventory.GetItem(slotType) != null;
+
+            // Pobieramy ca³e opakowanie przypisane do danego slotu
+            InventoryItem itemWrapper = inventory.GetItem(slotType);
+
+            // KLUCZOWA POPRAWKA: Sprawdzamy czy opakowanie nie jest puste ORAZ czy ma przypisan¹ Ksiêgê Zasad (data)
+            bool isOccupied = itemWrapper != null && itemWrapper.data != null;
+
             bool isCurrent = slotType == currentItem;
 
             // Toggle visibility so the Horizontal Layout Group can rebuild and snap items to the right
@@ -135,11 +141,11 @@ public class UI : MonoBehaviour
     }
 
     private void UpdateHealthBar(float currentHealth)
-    {   
+    {
         targetHealth = currentHealth;
-        healthText.text = currentHealth * 100  + "%";
+        healthText.text = currentHealth * 100 + "%";
     }
-    
+
     void Update()
     {
         // If the slider isn't at the target health, smoothly slide it over

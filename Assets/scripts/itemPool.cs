@@ -45,14 +45,16 @@ public class ItemPool : MonoBehaviour
     /// <param name="physicalItem">The specific Item instance being picked up or despawned.</param>
     public void StoreInPool(Item physicalItem)
     {
+        // Edge Case: Prevent null reference exceptions
         if (physicalItem == null)
         {
             if (enableDebug) Debug.LogError("<color=red><b>[ItemPool]</b></color> Attempted to store a null item in the pool!");
             return;
         }
 
-        ItemData data = physicalItem.itemData;
+        ItemData data = physicalItem.savedItemData?.data;
 
+        // Edge Case: Validate ItemData existence
         if (data == null)
         {
             if (enableDebug) Debug.LogError($"<color=red><b>[ItemPool]</b></color> Item <color=yellow>{physicalItem.gameObject.name}</color> has no assigned ItemData!");
@@ -78,7 +80,7 @@ public class ItemPool : MonoBehaviour
     /// </summary>
     /// <param name="data">The scriptable object data defining the item.</param>
     /// <param name="spawnPosition">The Vector3 world coordinates for the item drop.</param>
-    /// <returns>The physical Item instance spawned or pulled from the pool, or null if failed.</returns>
+    /// <returns>Returns the spawned physical item (Item component) so data can be injected.</returns>
     public Item SpawnFromPool(ItemData data, Vector3 spawnPosition)
     {
         if (data == null)
@@ -94,7 +96,7 @@ public class ItemPool : MonoBehaviour
             parkedItem.transform.position = spawnPosition;
             parkedItem.transform.SetParent(null);
             parkedItem.gameObject.SetActive(true);
-            parkedItem.ApplyPickupCooldown(2f);
+            parkedItem.ApplyPickupCooldown(2f); // Prevent instant re-pickup
 
             if (enableDebug)
                 Debug.Log($"<color=green><b>[ItemPool]</b></color> Reusing <color=yellow>{data.name}</color> from pool. Remaining available: {pool[data].Count}");
@@ -111,7 +113,6 @@ public class ItemPool : MonoBehaviour
 
         // 2. ONLY if the pool is completely empty do we ever use Instantiate
         Item newItem = Instantiate(data.physicalPrefab, spawnPosition, Quaternion.identity);
-        newItem.itemData = data;
         newItem.ApplyPickupCooldown(2f);
 
         if (enableDebug)
@@ -125,10 +126,12 @@ public class ItemPool : MonoBehaviour
     {
         if (!enableDebug) return;
 
+        // Visualize the central pool storage hub
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, new Vector3(2f, 2f, 2f));
 
-        Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.5f);
+        // Visualize currently parked items resting inside the pool hierarchy
+        Gizmos.color = new Color(1f, 0.92f, 0.016f, 0.5f); // Transparent yellow
         foreach (Transform child in transform)
         {
             if (!child.gameObject.activeInHierarchy)
