@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f5544e87d3705a40a9dbff254124ed2, type: 3}
-  m_Name: PistolData
+  m_Name: pistolData
   m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.item.RangedItemData
   itemType: 1
   itemName: Pistolet
