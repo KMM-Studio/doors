@@ -20,7 +20,8 @@ namespace prefabs.enemies
     
         // We updated the signature to require the attacker's Transform
         public void TakeDamage(float damage, [CanBeNull] Transform attacker)
-        {
+        {   
+            Debug.Log(damage);
             currentHealth -= damage;
 
             // Add or update the attacker in the threat table
