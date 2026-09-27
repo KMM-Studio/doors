@@ -109,6 +109,38 @@ namespace prefabs.player
             }
         }
 
+        [Space(10)]
+        [Header("Shooting Setup")]
+        [Tooltip("The camera used to cast rays for ranged weapons.")]
+        public Transform playerCamera;
+
+        /// <summary>
+        /// Fires the currently equipped item (attacks or shoots).
+        /// </summary>
+        /// <param name="context">The input action callback context.</param>
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            // Reagujemy tylko na moment wciśnięcia przycisku (nie trzymanie czy puszczanie)
+            if (context.performed && inventory != null)
+            {
+                // Sprawdzamy, czy gracz trzyma jakiś przedmiot
+                if (inventory.CurrentItem != null && inventory.CurrentItem.data != null)
+                {
+                    if (enableDebug) Debug.Log($"<color=cyan><b>[PlayerInputHandler]</b></color> Input: <color=white>Fire</color> using: <color=yellow>{inventory.CurrentItem.data.itemName}</color>");
+
+                    // Zabezpieczenie: jeśli nie przypisałeś kamery, strzał wyleci z klatki piersiowej gracza
+                    Transform shootOrigin = playerCamera != null ? playerCamera : transform;
+
+                    // Wywołanie ataku!
+                    inventory.CurrentItem.TryShoot(shootOrigin);
+                }
+                else
+                {
+                    if (enableDebug) Debug.Log($"<color=cyan><b>[PlayerInputHandler]</b></color> Input: <color=white>Fire</color> ignored. Hands are empty.");
+                }
+            }
+        }
+
         // --- Trigger Events ---
 
         /// <summary>
@@ -168,9 +200,9 @@ namespace prefabs.player
                 Debug.Log($"<color=cyan><b>[PlayerInputHandler]</b></color> Cannot swap item with item: <color=orange>{newItem.name}</color> due to its Pickup cooldown");
                 return;
             }
-            
-            ItemType targetType = newItem.itemData.itemType;
-            
+
+            ItemType targetType = newItem.savedItemData.data.itemType;
+
             // 1. Tell the inventory to drop whatever item is occupying this target slot
             inventory.DropItem(targetType);
             

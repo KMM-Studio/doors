@@ -9,9 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1203ea47d74b8ca0075614d9668890, type: 3}
-  m_Name: pistolData
-  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  m_Script: {fileID: 11500000, guid: 8f5544e87d3705a40a9dbff254124ed2, type: 3}
+  m_Name: PistolData
+  m_EditorClassIdentifier: MainGameAsseblyDefinition::prefabs.item.RangedItemData
   itemType: 1
   itemName: Pistolet
-  physicalPrefab: {fileID: 1842136065386915497, guid: 63d640b25cf4cf852a4c9463d41a9567, type: 3}
+  physicalPrefab: {fileID: 5985637477639071722, guid: 2dda67eb2019ce04981212f21962e718, type: 3}
+  viewModelPrefab: {fileID: 1034932441970684982, guid: ef5e94680c53f984eb810f6946765874, type: 3}
+  power: 20
+  actionRate: 0.5
+  maxMagSize: 30
+  shootRange: 100
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0

@@ -1,17 +1,20 @@
-using prefabs.player;
 using UnityEngine;
+using prefabs.player;
 
 namespace prefabs.item
 {
     /// <summary>
-    /// Represents a physical item in the game world that can be picked up and added to a player's inventory.
-    /// Handles pickup cooldowns, inventory interactions, and object pooling.
+    /// Represents a physical item in the game world that can be picked up.
+    /// Acts as a "suitcase" holding the InventoryItem data wrapper to retain state (like ammo) when dropped.
     /// </summary>
     public class Item : MonoBehaviour
     {
-        [Header("Item Configuration")]
-        [Tooltip("The core data defining this item's properties. Must be assigned in the Inspector.")]
-        public ItemData itemData;
+        [Header("Runtime Item Configuration")]
+        [Tooltip("The runtime instance of the item holding mutable state (e.g., ammo left).")]
+        public InventoryItem savedItemData;
+
+        [Tooltip("Assign this if the item is manually placed in the Scene before play. The script will generate a new wrapper from it.")]
+        public ItemData defaultStartingData;
 
         [Space(10)]
         [Header("Debug & Visualization")]
@@ -20,10 +23,20 @@ namespace prefabs.item
 
         private float _pickupBlockTimer = 0f;
 
-        private void Awake()
+        private void Start()
         {
-            // Fail-Safe Assertion: Ensures required data is assigned before gameplay begins
-            Debug.Assert(itemData != null, $"<color=red><b>[Item]</b></color> ItemData is missing on <b>{gameObject.name}</b>! Please assign it in the Inspector.", this);
+            // Fail-Safe Assertion: Ensures required data is available for manually placed scene objects
+            if (savedItemData == null || savedItemData.data == null)
+            {
+                if (defaultStartingData != null)
+                {
+                    savedItemData = new InventoryItem(defaultStartingData);
+                }
+                else
+                {
+                    Debug.LogError($"<color=red><b>[Item]</b></color> Default Starting Data is missing on <b>{gameObject.name}</b>! Please assign it in the Inspector.", this);
+                }
+            }
         }
 
         private void Update()
@@ -35,7 +48,6 @@ namespace prefabs.item
         /// Applies a temporary block preventing the item from being picked up immediately.
         /// Useful for when items are dropped by enemies or the player.
         /// </summary>
-        /// <param name="cooldown">The duration in seconds before the item can be picked up.</param>
         public void ApplyPickupCooldown(float cooldown)
         {
             _pickupBlockTimer = cooldown;
@@ -52,10 +64,9 @@ namespace prefabs.item
         public bool CanBePickedUp => _pickupBlockTimer <= 0f;
 
         /// <summary>
-        /// Attempts to add this item to the provided inventory. If successful, stores the physical representation in the item pool.
+        /// Attempts to add this item's wrapper (state) to the provided inventory. 
+        /// If successful, stores the physical representation in the object pool.
         /// </summary>
-        /// <param name="inventory">The target inventory attempting to pick up the item.</param>
-        /// <returns>True if successfully added to the inventory, false otherwise (e.g., inventory full or item on cooldown).</returns>
         public bool TryToPickup(PlayerInventory inventory)
         {
             if (!CanBePickedUp)
@@ -70,11 +81,17 @@ namespace prefabs.item
                 return false;
             }
 
-            // 1. Give the pure data to the inventory
-            if (inventory.TryToAddItem(itemData))
+            if (savedItemData == null || savedItemData.data == null)
             {
-                if (enableDebug) Debug.Log($"<color=cyan><b>[Item]</b></color> <b>{(itemData != null ? itemData.name : "Unknown")}</b> successfully added to inventory. Returning to pool.");
-                
+                Debug.LogError($"<color=red><b>[Item]</b></color> Attempted to pick up <b>{gameObject.name}</b> but it contains no valid saved item data!");
+                return false;
+            }
+
+            // 1. Give the data wrapper (soul) to the inventory
+            if (inventory.TryToAddItem(savedItemData))
+            {
+                if (enableDebug) Debug.Log($"<color=cyan><b>[Item]</b></color> <b>{savedItemData.data.itemName}</b> successfully added to inventory. Returning to pool.");
+
                 // 2. If successful, put this physical 3D model into the pool
                 if (ItemPool.Instance != null)
                 {
@@ -85,12 +102,12 @@ namespace prefabs.item
                     Debug.LogError($"<color=red><b>[Item]</b></color> ItemPool.Instance is null! Destroying <b>{gameObject.name}</b> instead to avoid memory leaks.");
                     Destroy(gameObject);
                 }
-                
+
                 return true;
             }
 
-            if (enableDebug) Debug.Log($"<color=cyan><b>[Item]</b></color> Failed to add <b>{gameObject.name}</b>. Inventory is full or rejected the item.");
-            return false; // Inventory slot was full
+            if (enableDebug) Debug.Log($"<color=cyan><b>[Item]</b></color> Failed to add <b>{gameObject.name}</b>. Inventory slot might be full.");
+            return false;
         }
 
 #if UNITY_EDITOR
@@ -98,19 +115,19 @@ namespace prefabs.item
         {
             if (!enableDebug) return;
 
-            // Edge Case Visualization: Missing ItemData mapping
-            if (itemData == null)
+            // Edge Case Visualization: Missing Data mapping
+            if (savedItemData == null && defaultStartingData == null)
             {
                 Gizmos.color = Color.magenta; // Magenta highlights critical setup errors
                 Gizmos.DrawWireCube(transform.position, Vector3.one * 0.5f);
-                return; 
+                return;
             }
 
             // Spatial Logic: Draw interaction state spheres
             bool isPickable = CanBePickedUp;
             Gizmos.color = isPickable ? new Color(0f, 1f, 0f, 0.3f) : new Color(1f, 0f, 0f, 0.3f);
             Gizmos.DrawSphere(transform.position, 0.25f);
-            
+
             Gizmos.color = isPickable ? Color.green : Color.red;
             Gizmos.DrawWireSphere(transform.position, 0.25f);
 
@@ -122,5 +139,31 @@ namespace prefabs.item
             }
         }
 #endif
+
+        // Ta funkcja odpala siê automatycznie, gdy cokolwiek wejdzie w Sphere Collider (z zaznaczonym Is Trigger)
+        private void OnTriggerEnter(Collider other)
+        {
+            // Sprawdzamy, czy obiekt, który na nas nadepn¹³, ma tag "Player"
+            if (other.CompareTag("Player"))
+            {
+                // Szukamy ekwipunku na graczu, przeszukuj¹c ca³¹ jego hierarchiê (dzieci i rodziców)
+                PlayerInventory inventory = other.GetComponentInChildren<PlayerInventory>();
+                if (inventory == null)
+                {
+                    inventory = other.GetComponentInParent<PlayerInventory>();
+                }
+
+                if (inventory != null)
+                {
+                    // Próbujemy podnieœæ!
+                    TryToPickup(inventory);
+                }
+                else
+                {
+                    // Ostrze¿enie w konsoli, jeœli gracz ma tag, ale nie mo¿na na nim znaleŸæ skryptu PlayerInventory
+                    Debug.LogWarning($"<color=yellow><b>[Item]</b></color> Obiekt <b>{other.name}</b> ma tag 'Player', ale nie znaleziono na nim ani w jego hierarchii skryptu PlayerInventory!");
+                }
+            }
+        }
     }
 }
