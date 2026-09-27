@@ -31,11 +31,11 @@ namespace prefabs.item
             {
                 Debug.Log($"<color=red><b>[Pistolet]</b></color> Trafiono w: <b>{hit.transform.name}</b> za {power} obrażeń.");
 
-                // Docelowy kod zadający obrażenia wrogom:
-                // if (hit.transform.TryGetComponent(out Health targetHealth))
-                // {
-                //     targetHealth.TakeDamage(power);
-                // }
+                //Docelowy kod zadający obrażenia wrogom:
+                if (hit.transform.TryGetComponent(out EnemyStats targetHealth))
+                {
+                    targetHealth.TakeDamage(power);
+                }
             }
         }
     }
