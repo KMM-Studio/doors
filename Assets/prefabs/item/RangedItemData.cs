@@ -34,7 +34,7 @@ namespace prefabs.item
                 //Docelowy kod zadający obrażenia wrogom:
                 if (hit.transform.TryGetComponent(out EnemyStats targetHealth))
                 {
-                    targetHealth.TakeDamage(power);
+                    targetHealth.TakeDamage(power, null);
                 }
             }
         }
