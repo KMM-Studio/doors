@@ -12,7 +12,12 @@ namespace prefabs.player
         public float maxSpeed = 5f;
     
         public static event Action<float> OnHealthChanged;
-    
+        
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+        }
+        
         private void Awake()
         {
             if (currentHealth <= 0) currentHealth = maxHealth;

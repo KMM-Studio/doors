@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6712522507526296928}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 3811184597963870785}
   - component: {fileID: 3823143992435268272}
   - component: {fileID: 3923330749288414960}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -131,7 +131,19 @@ MonoBehaviour:
     m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
     m_ActionName: 'Player/Look[/Gamepad/rightStick,/Mouse/delta]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2650392961900729630}
+        m_TargetAssemblyTypeName: prefabs.player.PlayerInputHandler, MainGameAsseblyDefinition
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Gamepad/buttonWest,/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
@@ -250,6 +262,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2650392961900729630}
+        m_TargetAssemblyTypeName: prefabs.player.PlayerInputHandler, MainGameAsseblyDefinition
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 44dbb53c-dd69-4371-bf02-b12dae4e28fc
+    m_ActionName: 'Player/Fire[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -268,7 +296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::prefabs.player.PlayerInputHandler
   inventory: {fileID: 7196795442251248016}
-  enableDebug: 0
+  enableDebug: 1
+  playerCamera: {fileID: 1161137040378218426}
 --- !u!54 &1650459616932802447
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -366,13 +395,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
   items:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - data: {fileID: 0}
+    currentMag: 0
+    reserveAmmo: 0
+  - data: {fileID: 0}
+    currentMag: 0
+    reserveAmmo: 0
+  - data: {fileID: 0}
+    currentMag: 0
+    reserveAmmo: 0
+  - data: {fileID: 0}
+    currentMag: 0
+    reserveAmmo: 0
   playerCamera: {fileID: 127760796650511411}
   dropForce: 3
-  enableDebug: 0
 --- !u!33 &3811184597963870785
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -465,7 +501,7 @@ GameObject:
   - component: {fileID: 127760796650511411}
   - component: {fileID: 9009628704339578526}
   - component: {fileID: 9122017497593746416}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
